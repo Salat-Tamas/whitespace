@@ -27,10 +27,10 @@ export const lesson = defineType({
     }),
     defineField({
       name: "description",
-      description: "A short description of the slide",
+      description: "A short description of the lesson",
       title: "Description",
       type: "text",
-      validation: (Rule) => Rule.required().max(150),
+      validation: (Rule) => Rule.required().max(70),
     }),
 
     defineField({

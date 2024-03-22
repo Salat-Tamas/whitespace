@@ -18,7 +18,7 @@ export const slide = defineType({
       title: "Content",
       description: "The content of the slide",
       type: "markdown",
-      validation: (Rule) => Rule.required().max(270),
+      validation: (Rule) => Rule.required().max(500),
     }),
   ],
 });
