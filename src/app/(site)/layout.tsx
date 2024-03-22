@@ -21,7 +21,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(inter.className, 'select-none' )}>
         <Navbar />
-        {children}
+        <div className="pt-14 sm:pt-0"
+        >{children}</div>
         <Footer />
         </body>
     </html>

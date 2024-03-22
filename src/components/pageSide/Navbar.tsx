@@ -1,10 +1,12 @@
 'use client'
 
-import React from "react";
+import React, { useState } from "react";
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Image from "next/image";
 
 const navigation = [
   { name: 'Home', href: '#', current: true },
@@ -12,18 +14,20 @@ const navigation = [
   { name: 'Leaderboard', href: '#', current: false },
 ]
 
-function classNames(...classes : any) {
+function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 const Navbar = () => {
+
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+  
+    <Disclosure as="nav" className='bg-gray-800 fixed w-full z-10 sm:relative md:mb-0 border-b-1'>
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 z-0">
             <div className="relative flex h-16 items-center justify-between">
-              <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <div className='absolute inset-y-0 left-0 flex items-center sm:hidden'>
                 {/* Mobile menu button*/}
                 <Disclosure.Button className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                   <span className="absolute -inset-0.5" />
@@ -36,15 +40,18 @@ const Navbar = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
+                <div className="hidden sm:ml-6 sm:block">
+                  <Image
+                    src="/assets/images/w.png"
+                    className="bg-white rounded-md"
+                    height={30}
+                    width={30}
+                    alt="Picture of the author"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
+
                     {navigation.map((item) => (
                       <Link
                         key={item.name}
@@ -62,18 +69,27 @@ const Navbar = () => {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                
+                <div className="flex flex-row mr-4 p-2 rounded-md items-center bg-gradient-to-tr from-blue-900 to-yellow-600 cursor-pointer transition-colors duration-[0.6s] ease-in-out hover:from-blue-900 hover:to-amber-600">
+                  <div className="mx-4"> Become a creator!</div>
+                  {/* <div className="relative w-8 h-8 md:w-10 md:h-10">
+                    <Image 
+                    src="/assets/images/shape-creator.png" alt="Become a creator picture"
+                    // height={40}
+                    // width={40}
+                    fill
+                    />
+                  </div> */}
+                </div>
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://www.flaticon.com/free-icons/user"
-                        alt=""
-                      />
+                      <Avatar>
+                        <AvatarImage src="assets/images/user.png" alt="default user" />
+                        <AvatarFallback>DU</AvatarFallback>
+                      </Avatar>
                     </Menu.Button>
                   </div>
                   <Transition
@@ -96,16 +112,16 @@ const Navbar = () => {
                           </Link>
                         )}
                       </Menu.Item>
-                      <Menu.Item>
+                      {/* <Menu.Item>
                         {({ active }) => (
                           <Link
                             href="#"
                             className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                           >
-                            My Themes
+                            My Themes CSAK A KONTENT KREATOROK
                           </Link>
                         )}
-                      </Menu.Item>
+                      </Menu.Item> */}
                       <Menu.Item>
                         {({ active }) => (
                           <Link
