@@ -7,18 +7,21 @@ import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
-const navigation = [
-  { name: 'Home', href: '/', current: true },
-  { name: 'Lessons', href: '/lessons', current: false },
-  { name: 'Leaderboard', href: '/leaderboard', current: false },
-]
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(' ')
 }
 
 const Navbar = () => {
+  const pathname = usePathname();
+
+  const navigation = [
+    { name: 'Home', href: '/', current: pathname === '/' },
+    { name: 'Lessons', href: '/lessons', current: pathname === '/lessons' },
+    { name: 'Leaderboard', href: '/leaderboard', current: pathname === '/leaderboard' },
+  ];
 
   return (
 
