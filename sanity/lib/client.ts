@@ -33,3 +33,13 @@ export async function getLessons(): Promise<Lesson[]> {
     }`
   );
 }
+
+export async function getSlides(slug: string): Promise<Slide[]> {
+  return client.fetch(
+    groq`*[_type == "lesson" && slug.current == $slug ] | order(title asc) {
+      title,
+      slides
+  }`,
+    { slug }
+  );
+}
