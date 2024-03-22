@@ -16,7 +16,6 @@ export type FlipcardProps = {
 const Flipcard = (props: FlipcardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
-  console.log(props.href);
 
   function handleFLip() {
     if (!isAnimating) {

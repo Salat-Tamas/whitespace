@@ -18,7 +18,7 @@ const Lessons = (props: Props) => {
 
   return (
     <div className="p-4 grid grid-cols-2 md:grid-cols-3 gap-1">
-      {data.map((card, i) => (
+      {data && data.map((card, i) => (
         <Flipcard
           key={i}
           title={card.title}
