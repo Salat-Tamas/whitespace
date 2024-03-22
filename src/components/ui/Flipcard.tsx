@@ -15,12 +15,15 @@ import {
   } from "@/components/ui/card"
 import Link from 'next/link'
 
-type Props = {
 
+export type FlipcardProps ={
+    title: string
+    description: string
+    href: string
 }
 
 
-const Flipcard = (props: Props) => {
+const Flipcard = (props: FlipcardProps) => {
 
     const [isFlipped, setIsFlipped] = useState(false)
     const [isAnimating, setIsAnimating] = useState(false)
@@ -33,8 +36,8 @@ const Flipcard = (props: Props) => {
     }
 
     return (
-        <div className='flex items-center justify-center bg-black h-[800px] cursor-pointer'>
-            <div className='flip-card w-[300px] h-[300px] rounded-md' onClick={handleFLip}>
+        <div className='flex items-center justify-center bg-black m-1 h-[150px] md:h-[300px] md:m-2 lg:h-[350px] cursor-pointer'>
+            <div className='flip-card w-[150px] h-[150px] md:w-[300px] md:h-[300px] lg:w-[550px] lg:h-[350px] rounded-md' onClick={handleFLip}>
                 <motion.div
                 className='flip-card-inner w-[100%] h-[100%] rounded-md'
                 initial={false}
@@ -42,20 +45,9 @@ const Flipcard = (props: Props) => {
                 transition={{duration: 0.6, animationDirection: "normal"}}
                 onAnimationComplete={() => setIsAnimating(false)}
                 >
-                    <div className='flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700'>
-                        <h3 className='text-2xl font-bold'>Topic Title</h3>
-                    </div>
+                    <FlipcardFront title={props.title}/>
 
-                    <div className='flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700'>
-                        <ul className='justify-center'>
-                            <li>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Lorem ipsum dolor sit, amet consectetur adipisicing elit.</p>
-                            </li>
-                            <li>
-                                <Link href='/' className={buttonVariants({ variant: "outline" })}>Learn</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <FlipcardBack description={props.description} href={props.href}/>
                 </motion.div>
             </div>
         </div>
@@ -63,3 +55,27 @@ const Flipcard = (props: Props) => {
     }
     
     export default Flipcard
+
+function FlipcardFront({title}: {title: string}) {
+    return <div className='flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-end'>
+        <h3 className='text-2xl font-bold'>{title}</h3>
+    </div>
+}
+
+type FlipcardBackProps = {
+    description: string
+    href: string
+}
+
+function FlipcardBack({description, href}:FlipcardBackProps) {
+    return <div className='flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-white sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-end'>
+        <ul>
+            <li className='md:p-3'>
+                <p>{description}</p>
+            </li>
+            <li className='flex justify-center'>
+                <Link href={`/lessons/${href}`} className={buttonVariants({ variant: "outline" })}>Learn</Link>
+            </li>
+        </ul>
+    </div>
+}
