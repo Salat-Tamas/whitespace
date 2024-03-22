@@ -9,8 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Image from "next/image";
 
 const navigation = [
-  { name: 'Home', href: '#', current: true },
-  { name: 'Themes', href: '#', current: false },
+  { name: 'Home', href: '/', current: true },
+  { name: 'Lessons', href: '/lessons', current: false },
   { name: 'Leaderboard', href: '#', current: false },
 ]
 
