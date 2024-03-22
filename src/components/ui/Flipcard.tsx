@@ -5,14 +5,6 @@ import Image from "next/image";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
 
 export type FlipcardProps = {

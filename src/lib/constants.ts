@@ -4,7 +4,7 @@ export const cards  = [
     {
         title: "Card 1",
         description: "This is the description for card 1",
-        href: "/card1"
+        href: "/lesson"
     },
     {
         title: "Card 2",
