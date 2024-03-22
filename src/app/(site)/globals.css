@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  .theme-custom {
+  :root {
     /* Name: custom color palette
        Author: Ilias Ism
        URL: https://gradient.page */

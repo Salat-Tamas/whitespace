@@ -13,7 +13,7 @@ const Login = (props: Props) => {
   const supabase = createClient();
 
   return (
-    <main className="flex justify-center items-center min-h-screen">
+    <main className="flex justify-center items-center min-h-screen bg-background">
       <div className="flex flex-col">
         <h1 className="text-lg font-semibold text-center">Whitespace</h1>
         <Auth
