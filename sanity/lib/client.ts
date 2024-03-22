@@ -9,11 +9,6 @@ export const client = createClient({
   useCdn,
 });
 
-export interface Slide {
-  title: string;
-  content: string;
-  image: string;
-}
 export interface Lesson {
   title: string;
   slug: string;
@@ -34,11 +29,21 @@ export async function getLessons(): Promise<Lesson[]> {
   );
 }
 
-export async function getSlides(slug: string): Promise<Slide[]> {
+export interface LessonSlide {
+  title: string;
+  slides: Slide[];
+  image: string;
+}
+export interface Slide {
+  title: string;
+  content: string;
+  image: string;
+}
+export async function getSlides(slug: string): Promise<LessonSlide> {
   return client.fetch(
-    groq`*[_type == "lesson" && slug.current == $slug ] | order(title asc) {
+    groq`*[_type == "lesson" && slug.current == $slug ][0]  {
       title,
-      slides
+      slides,
   }`,
     { slug }
   );
