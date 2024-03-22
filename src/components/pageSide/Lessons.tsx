@@ -12,13 +12,13 @@ import useSWR from "swr";
 type Props = {};
 
 const Lessons = (props: Props) => {
-  const { data, isLoading, error } = useSWR("/api/lessons", getLessons);
-  if (!data || isLoading) return <div>Loading...</div>;
-  if (!data || error) return <div>Error: {error}</div>;
+  const { data, isLoading, error } = useSWR("/lessons", getLessons.bind(null));
+  if (isLoading) return <div>Loading...</div>;
+  if (error || data === undefined) return <div>Error: {error}</div>;
 
   return (
     <div className="p-4 grid grid-cols-2 md:grid-cols-3 gap-1">
-      {data && data.map((card, i) => (
+      {data.map((card, i) => (
         <Flipcard
           key={i}
           title={card.title}
