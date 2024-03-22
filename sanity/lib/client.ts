@@ -9,15 +9,27 @@ export const client = createClient({
   useCdn,
 });
 
-export async function getLessons() {
+export interface Slide {
+  title: string;
+  content: string;
+  image: string;
+}
+export interface Lesson {
+  title: string;
+  slug: string;
+  description: string;
+  rating: number;
+  outreach: number;
+}
+
+export async function getLessons(): Promise<Lesson[]> {
   return client.fetch(
     groq`*[_type == "lesson"] | order(title asc) {
     title,
-    slug,
+    "slug" : slug.current,
     description,
     rating,
-    outreach,
-    slides
+    outreach
     }`
   );
 }
