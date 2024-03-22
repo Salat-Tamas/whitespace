@@ -1,3 +1,5 @@
+'use client'
+
 import Flipcard from "@/components/ui/Flipcard";
 
 import { cards } from "@/lib/constants";
