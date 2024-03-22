@@ -16,6 +16,7 @@ export type FlipcardProps = {
 const Flipcard = (props: FlipcardProps) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  console.log(props.href);
 
   function handleFLip() {
     if (!isAnimating) {
@@ -70,7 +71,7 @@ function FlipcardBack({ description, href }: FlipcardBackProps) {
         </li>
         <li className="flex justify-center">
           <Link
-            href={`lessons/${href}`}
+            href={`/lessons/${href}`}
             className={buttonVariants({ variant: "outline" })}
           >
             Learn

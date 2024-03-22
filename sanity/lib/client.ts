@@ -26,7 +26,7 @@ export async function getLessons(): Promise<Lesson[]> {
   return client.fetch(
     groq`*[_type == "lesson"] | order(title asc) {
     title,
-    slug,
+    "slug" : slug.current,
     description,
     rating,
     outreach
