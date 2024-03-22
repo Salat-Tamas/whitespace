@@ -36,13 +36,13 @@ const Flipcard = (props: FlipcardProps) => {
     }
 
     return (
-        <div className='flex items-center justify-center bg-black m-1 h-[150px] md:h-[300px] md:m-2 lg:h-[350px] cursor-pointer'>
+        <div className='flex items-center justify-center m-1 h-[150px] md:h-[300px] md:m-2 lg:h-[350px] cursor-pointer'>
             <div className='flip-card w-[150px] h-[150px] md:w-[300px] md:h-[300px] lg:w-[550px] lg:h-[350px] rounded-md' onClick={handleFLip}>
                 <motion.div
                 className='flip-card-inner w-[100%] h-[100%] rounded-md'
                 initial={false}
                 animate={{rotateY: isFlipped ? 180 : 360}}
-                transition={{duration: 0.6, animationDirection: "normal"}}
+                transition={{duration: 0.3, animationDirection: "normal"}}
                 onAnimationComplete={() => setIsAnimating(false)}
                 >
                     <FlipcardFront title={props.title}/>
@@ -71,7 +71,7 @@ function FlipcardBack({description, href}:FlipcardBackProps) {
     return <div className='flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-white sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-end'>
         <ul>
             <li className='md:p-3'>
-                <p>{description}</p>
+                <p className='overflow-hidden'>{description}</p>
             </li>
             <li className='flex justify-center'>
                 <Link href={`/lessons/${href}`} className={buttonVariants({ variant: "outline" })}>Learn</Link>
