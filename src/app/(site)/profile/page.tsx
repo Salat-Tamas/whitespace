@@ -175,9 +175,10 @@ const page = (props: Props) => {
       <div className="flex flex-col justify-center items-center text-gray-300">
         <h2 className="text-3xl flex flex-row justify-center my-8 font-bold">My Lessons</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          <LessonCardMyLessons title={"one"} />
-          <LessonCardMyLessons title={"two"} />
-          <LessonCardMyLessons title={"three"} />
+                <LessonCardMyLessons title={"Health"}/>
+                <LessonCardMyLessons title={"Fitness"}/>
+                <LessonCardMyLessons title={"Education"}/>
+                
         </div>
       </div>
     </div>
