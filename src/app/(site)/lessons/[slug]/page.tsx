@@ -116,7 +116,7 @@ export default page;
 
 const Loader = () => {
   return (
-    <div className="flex flex-col items-center justify-start border-2 border-red-600 w-full h-full p-5">
+    <div className="flex flex-col items-center justify-start w-full h-full p-5">
       <div className="border-2 border-gray-950 bg-gradient-to-tr from-gray-800 to bg-indigo-600 w-full h-[700px] p-6 rounded-3xl">
         <div className="text-3xl font-bold text-white overflow-hidden pb-4 border-b-2 border-gray-800">
           <Skeleton className="h-8 w-[250px]" />
