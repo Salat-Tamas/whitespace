@@ -11,6 +11,11 @@ import {
 import useSWR from "swr";
 import { getSlides } from "../../../../../sanity/lib/client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import Image from "next/image";
+import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
 
 type lessonProps = {
   params: {
@@ -27,7 +32,7 @@ const page = ({ params }: lessonProps) => {
   if (error || data === undefined) return <div>Error: {error}</div>;
   return (
     <div className="flex justify-center h-[800px] pt-7">
-      <Carousel className="w-full max-w-[100vw] h-full relative">
+      <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
         <CarouselContent>
           {data.slides.map((slide, index) => (
             <CarouselItem key={index}>
@@ -38,6 +43,70 @@ const page = ({ params }: lessonProps) => {
               />
             </CarouselItem>
           ))}
+          <CarouselItem className="p-7">
+            <Card className="from-gray-800 to bg-indigo-600 h-full w-full">
+              <CardHeader>
+                <CardTitle className="text-4xl">Chose game</CardTitle>
+              </CardHeader>
+              <CardContent className="h-full ">
+                <Separator />
+                <div className=" mt-8 flex gap-5 flex-col justify-between items-center md:flex-row h-full w-full">
+                  {data.hangman?.word && (
+                    <Card className="from-gray-800 to bg-indigo-600 min-h-60 w-full">
+                      <CardHeader>
+                        <CardTitle className="text-3xl">Hangman</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Image
+                          src="/assets/images/hangman.png"
+                          alt="Hangman"
+                          width={200}
+                          height={200}
+                        />
+                        <Link
+                          href={{
+                            pathname: "/games/hangman",
+                            query: params.slug,
+                          }}
+                          className={buttonVariants({
+                            variant: "secondary",
+                          })}
+                        >
+                          Play Game
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  )}
+                  {data.memory?.title && (
+                    <Card className="from-gray-800 to bg-indigo-600 min-h-60 w-full">
+                      <CardHeader>
+                        <CardTitle className="text-3xl">Memory Cards</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <Image
+                          src="/assets/images/hangman.png"
+                          alt="Hangman"
+                          width={200}
+                          height={200}
+                        />
+                        <Link
+                          href={{
+                            pathname: "/games/memory-cards",
+                            query: data.memory.title,
+                          }}
+                          className={buttonVariants({
+                            variant: "secondary",
+                          })}
+                        >
+                          Play Game
+                        </Link>
+                      </CardContent>
+                    </Card>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </CarouselItem>
         </CarouselContent>
         <CarouselPrevious className="hidden sm:block bottom-0 translate-y-[30vh] left-10" />
         <CarouselNext className="absolute hidden sm:block bottom-0 translate-y-[30vh] right-10" />
