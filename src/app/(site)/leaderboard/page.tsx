@@ -141,7 +141,7 @@ const columns: ColumnDef<Player>[] = [
 
 ]
 
-export function DataTableDemo() {
+export function Leaderboard() {
     const [sorting, setSorting] = React.useState<SortingState>([
         {
             id: "Score",
@@ -240,4 +240,4 @@ export function DataTableDemo() {
     )
 }
 
-export default DataTableDemo;
+export default Leaderboard;
