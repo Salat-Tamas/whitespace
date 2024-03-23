@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "../ui/use-toast";
 import { usePathname } from "next/navigation";
+import { User } from "@supabase/supabase-js";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -26,6 +26,21 @@ async function signOut() {
 }
 
 const Navbar = () => {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    async function getUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        setUser(user);
+        setLoggedIn(true);
+      }
+    }
+    getUser();
+  }, []);
   const pathname = usePathname();
 
   const navigation = [
@@ -112,13 +127,25 @@ const Navbar = () => {
                     <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
                       <span className="sr-only">Open user menu</span>
-                      <Avatar>
-                        <AvatarImage
-                          src="assets/images/user.png"
-                          alt="default user"
-                        />
-                        <AvatarFallback>DU</AvatarFallback>
-                      </Avatar>
+                      {loggedIn ? (
+                        <Avatar>
+                          <AvatarImage
+                            src={user?.user_metadata.avatar_url || ""}
+                            alt="default user"
+                          />
+                          <AvatarFallback>AD</AvatarFallback>
+                        </Avatar>
+                      ) : (
+                        <Link href={"/login"}>
+                          <Avatar>
+                            <AvatarImage
+                              src="assets/images/user.png"
+                              alt="default user"
+                            />
+                            <AvatarFallback>DU</AvatarFallback>
+                          </Avatar>
+                        </Link>
+                      )}
                     </Menu.Button>
                   </div>
                   <Transition
@@ -130,21 +157,22 @@ const Navbar = () => {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="/profile"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                          >
-                            Your Profile
-                          </Link>
-                        )}
-                      </Menu.Item>
-                      {/* <Menu.Item>
+                    {loggedIn && (
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="/profile"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                            >
+                              Your Profile
+                            </Link>
+                          )}
+                        </Menu.Item>
+                        {/* <Menu.Item>
                         {({ active }) => (
                           <Link
                             href="#"
@@ -154,21 +182,22 @@ const Navbar = () => {
                           </Link>
                         )}
                       </Menu.Item> */}
-                      <Menu.Item>
-                        {({ active }) => (
-                          <Link
-                            href="/"
-                            className={classNames(
-                              active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-gray-700"
-                            )}
-                            onClick={signOut}
-                          >
-                            Sign out
-                          </Link>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link
+                              href="/"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
+                              onClick={signOut}
+                            >
+                              Sign out
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    )}
                   </Transition>
                 </Menu>
               </div>

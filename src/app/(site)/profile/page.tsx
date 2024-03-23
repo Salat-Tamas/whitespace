@@ -24,6 +24,9 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { userPics } from "@/lib/constants";
 import { toast } from "@/components/ui/use-toast";
+import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from "react";
+import { User } from "@supabase/supabase-js";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   pfp: z.string(),
@@ -32,6 +35,19 @@ const formSchema = z.object({
 type Props = {};
 
 const page = (props: Props) => {
+  const supabase = createClient();
+  const [user, setUser] = useState<User>();
+  useEffect(() => {
+    async function getUser() {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (user) {
+        setUser(user);
+      }
+    }
+    getUser();
+  }, []);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,6 +55,15 @@ const page = (props: Props) => {
       pfp: "",
     },
   });
+
+  if (!user) {
+    return (
+      <main className="flex justify-center items-center -mt-20 align-top min-h-screen">
+        <h1 className="text-3xl">You must be logged in to view this page</h1>
+      </main>
+    );
+  }
+
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
