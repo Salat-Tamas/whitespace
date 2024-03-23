@@ -10,12 +10,7 @@ import Image from "next/image";
 import { Button } from "../ui/button";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "../ui/use-toast";
-
-const navigation = [
-  { name: "Home", href: "#", current: true },
-  { name: "Themes", href: "#", current: false },
-  { name: "Leaderboard", href: "#", current: false },
-];
+import { usePathname } from "next/navigation";
 
 function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
@@ -31,6 +26,18 @@ async function signOut() {
 }
 
 const Navbar = () => {
+  const pathname = usePathname();
+
+  const navigation = [
+    { name: "Home", href: "/", current: pathname === "/" },
+    { name: "Lessons", href: "/lessons", current: pathname === "/lessons" },
+    {
+      name: "Leaderboard",
+      href: "/leaderboard",
+      current: pathname === "/leaderboard",
+    },
+  ];
+
   return (
     <Disclosure
       as="nav"
@@ -54,13 +61,15 @@ const Navbar = () => {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="hidden sm:ml-6 sm:block">
-                  <Image
-                    src="/assets/images/w.png"
-                    className="bg-white rounded-md"
-                    height={30}
-                    width={30}
-                    alt="Picture of the author"
-                  />
+                  <Link href="/" className="cursor-pointer">
+                    <Image
+                      src="/assets/images/logo3.webp"
+                      className="bg-white rounded-md"
+                      height={40}
+                      width={40}
+                      alt="Picture of the author"
+                    />
+                  </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
@@ -84,7 +93,10 @@ const Navbar = () => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="flex flex-row mr-4 p-2 rounded-md items-center bg-gradient-to-tr from-blue-900 to-yellow-600 cursor-pointer transition-colors duration-[0.6s] ease-in-out hover:from-blue-900 hover:to-amber-600">
-                  <div className="mx-4"> Become a creator!</div>
+                  <div className="mx-4 text-xs sm:text-md">
+                    {" "}
+                    Become a creator!
+                  </div>
                   {/* <div className="relative w-8 h-8 md:w-10 md:h-10">
                     <Image 
                     src="/assets/images/shape-creator.png" alt="Become a creator picture"
