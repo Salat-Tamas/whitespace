@@ -66,7 +66,7 @@ const data: Player[] = [
     },
 ]
 
-export type Player = {
+type Player = {
     number: number
     id: string
     Score: number
@@ -74,7 +74,7 @@ export type Player = {
     totalNumberOfGamesPlayed: number
 }
 
-export const columns: ColumnDef<Player>[] = [
+const columns: ColumnDef<Player>[] = [
     {
         accessorKey: "number",
         header: "Number",
@@ -141,7 +141,7 @@ export const columns: ColumnDef<Player>[] = [
 
 ]
 
-export function DataTableDemo() {
+export function Leaderboard() {
     const [sorting, setSorting] = React.useState<SortingState>([
         {
             id: "Score",
@@ -175,7 +175,7 @@ export function DataTableDemo() {
     })
 
     return (
-        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4">
+        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4 h-[80vh]">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter by nickname..."
@@ -240,4 +240,4 @@ export function DataTableDemo() {
     )
 }
 
-export default DataTableDemo;
+export default Leaderboard;
