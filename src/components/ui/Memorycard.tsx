@@ -33,7 +33,7 @@ const Memorycard = ({content, id}: MemorycardProps) => {
         >
           <MemorycardFront />
 
-          <MemorycardBack content={props.content} />
+          <MemorycardBack content={content} />
         </motion.div>
             </div>
         </div>
