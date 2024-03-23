@@ -79,7 +79,7 @@ const columns: ColumnDef<Player>[] = [
         accessorKey: "number",
         header: "Number",
         cell: ({ row }) => (
-            <div className="capitalize">{ row.getValue("number")}</div>
+            <div className="capitalize">{row.getValue("number")}</div>
         ),
     },
     {
@@ -111,7 +111,7 @@ const columns: ColumnDef<Player>[] = [
             )
         },
         cell: ({ row }) => (
-            <div className="capitalize">{ row.getValue("totalNumberOfGamesPlayed")}</div>
+            <div className="capitalize">{row.getValue("totalNumberOfGamesPlayed")}</div>
         ),
     },
     {
@@ -175,66 +175,68 @@ export function Leaderboard() {
     })
 
     return (
-        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4 h-[80vh]">
-            <div className="flex items-center py-4">
-                <Input
-                    placeholder="Filter by nickname..."
-                    value={(table.getColumn("nickname")?.getFilterValue() as string) ?? ""}
-                    onChange={(event) =>
-                        table.getColumn("nickname")?.setFilterValue(event.target.value)
-                    }
-                    className="max-w-sm"
-                />
-            </div>
-            <div className="rounded-md border">
-                <Table>
-                    <TableHeader>
-                        {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id}>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    )
-                                })}
-                            </TableRow>
-                        ))}
-                    </TableHeader>
-                    <TableBody>
-                        {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row, rowIndex) => (
-                                <TableRow
-                                    key={row.id}
-                                    data-state={row.getIsSelected()}
-                                >
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
-                                        </TableCell>
-                                    ))}
+        <div className="h-[85vh]">
+            <div className="mx-4 my-4 rounded-lg p-8 sm:px-8 md:mx-20 lg:mx-64  bg-gradient-to-tr from-gray-900 to-indigo-500">
+                <div className="flex items-center py-4">
+                    <Input
+                        placeholder="Filter by nickname..."
+                        value={(table.getColumn("nickname")?.getFilterValue() as string) ?? ""}
+                        onChange={(event) =>
+                            table.getColumn("nickname")?.setFilterValue(event.target.value)
+                        }
+                        className="max-w-sm"
+                    />
+                </div>
+                <div className="rounded-md border">
+                    <Table>
+                        <TableHeader>
+                            {table.getHeaderGroups().map((headerGroup) => (
+                                <TableRow key={headerGroup.id}>
+                                    {headerGroup.headers.map((header) => {
+                                        return (
+                                            <TableHead key={header.id}>
+                                                {header.isPlaceholder
+                                                    ? null
+                                                    : flexRender(
+                                                        header.column.columnDef.header,
+                                                        header.getContext()
+                                                    )}
+                                            </TableHead>
+                                        )
+                                    })}
                                 </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                            ))}
+                        </TableHeader>
+                        <TableBody className='bg-gradient-tr from-blue-600 to-gray-600 text-gray-300'>
+                            {table.getRowModel().rows?.length ? (
+                                table.getRowModel().rows.map((row, rowIndex) => (
+                                    <TableRow
+                                        key={row.id}
+                                        data-state={row.getIsSelected()}
+                                    >
+                                        {row.getVisibleCells().map((cell) => (
+                                            <TableCell key={cell.id}>
+                                                {flexRender(
+                                                    cell.column.columnDef.cell,
+                                                    cell.getContext()
+                                                )}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={columns.length}
+                                        className="h-24 text-center"
+                                    >
+                                        No results.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </div>
             </div>
         </div>
     )
