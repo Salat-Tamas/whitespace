@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import dislike_red from "../../../public/assets/svgs/dislike_red.svg";
 import like_green from "../../../public/assets/svgs/like_green.svg";
+import { cn } from "@/lib/utils";
 
 export type FlipcardProps = {
   title: string;
@@ -52,8 +53,8 @@ export default Flipcard;
 
 function FlipcardFront({ title }: { title: string }) {
   return (
-    <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between">
-      <h3 className="text-2xl font-bold">{title}</h3>
+    <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between overflow-hidden">
+      <h3 className="text-md sm:text-lg md:text-2xl font-bold flex flex-auto">{title}</h3>
       <div className="flex flex-row justify-end gap-2">
         <div className="border-[2px] border-[#ff0000] rounded-full justify-center w-[30px] h-[30px]">
           <Image src={dislike_red} alt='dislike'/>
@@ -76,12 +77,12 @@ function FlipcardBack({ description, href }: FlipcardBackProps) {
     <div className="flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-white sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-end">
       <ul>
         <li className="md:p-3">
-          <p className="overflow-hidden">{description}</p>
+          <p className="overflow-hidden sm:text-md md:text-lg lg:text-2xl">{description}</p>
         </li>
         <li className="flex justify-center">
           <Link
             href={`/lessons/${href}`}
-            className={buttonVariants({ variant: "outline" })}
+            className={cn(buttonVariants( {variant: "outline"} ), "sm:w-[70px] sm:h-[35px] md:w-[90px] md:h-[40px lg:w-[100px] lg:h-[50px] flex justify-center items-center")}
           >
             Learn
           </Link>

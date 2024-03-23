@@ -21,6 +21,7 @@ const premiumBenefits = [
 ]
 
 const SubscriptionCard = () => {
+
   return (
     <div className="md:h-[55vh]">
     <div className="mx-4 flex flex-col gap-16 md:flex-row md:gap-20">
