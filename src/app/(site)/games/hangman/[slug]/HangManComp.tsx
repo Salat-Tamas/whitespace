@@ -5,7 +5,8 @@ import { HangmanWord } from "@/components/games/hangman/HangmanWord";
 import { Keyboard } from "@/components/games/hangman/Keyboard";
 import Image from "next/image";
 import { Hangman } from "../../../../../../sanity/lib/client";
-
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 const HangManComp = ({ hangman }: { hangman: Hangman }) => {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   hangman.word = hangman.word.toLowerCase();
@@ -42,6 +43,7 @@ const HangManComp = ({ hangman }: { hangman: Hangman }) => {
     },
     [guessedLetters, isWinner, isLoser]
   );
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-8 justify-center max-w-screen items-center p-6 min-h-[90vh]">
       {(isWinner || isLoser) && (
@@ -51,12 +53,17 @@ const HangManComp = ({ hangman }: { hangman: Hangman }) => {
           {isWinner && (
             <div className="border-[16px] text-green-600 rounded-[60px] border-green-600 px-24 py-12">
               Win!
+              <button onClick={() => router.back()} className="text-red-500">
+                Go back
+              </button>
             </div>
           )}
           {isLoser && (
             <div className="border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12">
-              {" "}
               Lose!
+              <Link href="/games/hangman" className="text-red-500">
+                Play again
+              </Link>
             </div>
           )}
         </div>
