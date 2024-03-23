@@ -12,11 +12,15 @@ const Footer = (props: Props) => {
       </div>
       <span className="sr-only">
         {" "}
-        <a target="_blank" href="https://icons8.com/icon/tgLepcPbp6mP/cat">
+        <a
+          rel="noopener"
+          target="_blank"
+          href="https://icons8.com/icon/tgLepcPbp6mP/cat"
+        >
           Cat
         </a>{" "}
         icon by{" "}
-        <a target="_blank" href="https://icons8.com">
+        <a rel="noopener" target="_blank" href="https://icons8.com">
           Icons8
         </a>
       </span>

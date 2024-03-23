@@ -49,7 +49,7 @@ const page = (props: Props) => {
   }
 
   return (
-    <main className="flex justify-center align-top min-h-screen pt-10">
+    <main className="flex justify-center items-center -mt-20 align-top min-h-screen">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
@@ -99,7 +99,11 @@ const page = (props: Props) => {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <div className="flex justify-center w-full">
+            <Button className="" type="submit">
+              Submit
+            </Button>
+          </div>
         </form>
       </Form>
     </main>
