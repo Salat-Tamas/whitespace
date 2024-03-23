@@ -8,7 +8,7 @@ type MemorycardProps = {
     id: number,
 }
 
-const Memorycard = (props: MemorycardProps) => {
+const Memorycard = ({content, id}: MemorycardProps) => {
 
     const[isFlipped, setIsFlipped] = useState(false);
     const[isAnimating, setIsAnimating] = useState(false);

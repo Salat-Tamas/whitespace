@@ -6,6 +6,8 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import dislike_red from "../../../public/assets/svgs/dislike_red.svg";
+import like_green from "../../../public/assets/svgs/like_green.svg";
 
 export type FlipcardProps = {
   title: string;
@@ -50,8 +52,16 @@ export default Flipcard;
 
 function FlipcardFront({ title }: { title: string }) {
   return (
-    <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-end">
+    <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between">
       <h3 className="text-2xl font-bold">{title}</h3>
+      <div className="flex flex-row justify-end gap-2">
+        <div className="border-[2px] border-[#ff0000] rounded-full justify-center w-[30px] h-[30px]">
+          <Image src={dislike_red} alt='dislike'/>
+        </div>
+        <div className='border-[2px] border-[#00ff00] rounded-full justify-center w-[30px] h-[30px]'>
+          <Image src={like_green} alt='like'/>
+        </div>
+      </div>
     </div>
   );
 }
