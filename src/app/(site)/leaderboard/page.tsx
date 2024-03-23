@@ -141,7 +141,7 @@ const columns: ColumnDef<Player>[] = [
 
 ]
 
-export const Leaderboard = () => {
+const Leaderboard = () => {
     const [sorting, setSorting] = React.useState<SortingState>([
         {
             id: "Score",
