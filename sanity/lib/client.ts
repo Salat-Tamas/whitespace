@@ -18,7 +18,7 @@ export interface Lesson {
 }
 
 export async function getLessons(): Promise<Lesson[]> {
-  return client.fetch(
+  return await client.fetch(
     groq`*[_type == "lesson"] | order(title asc) {
     title,
     "slug" : slug.current,
@@ -61,20 +61,15 @@ export async function getSlides(slug: string): Promise<LessonSlide> {
 }
 
 export interface Hangman {
-  title: string;
   word: string;
   hint: string;
 }
 export async function getHangman(slug: string): Promise<Hangman> {
-  var quer = await client.fetch<Hangman>(
+  return await client.fetch(
     groq`*[_type == "lesson" && slug.current == $slug ][0]  {
-      hangman,
+      "word": hangman.word,
+      "hint": hangman.hint
   }`,
     { slug }
   );
-
-  quer.hint = quer.hint.toUpperCase();
-  quer.word.split(` ,,./;[]-'"=90812345678~!@#$%^&*()_+{}:">?<`).at(0);
-
-  return quer;
 }

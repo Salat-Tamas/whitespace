@@ -64,10 +64,7 @@ const page = ({ params }: lessonProps) => {
                           height={200}
                         />
                         <Link
-                          href={{
-                            pathname: "/games/hangman",
-                            query: params.slug,
-                          }}
+                          href={`/games/hangman/${params.slug}`}
                           className={buttonVariants({
                             variant: "secondary",
                           })}
