@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/pageSide/Navbar";
 import Footer from "@/components/pageSide/Footer";
 import { cn } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +20,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, 'select-none' )}>
+      <body className={cn(inter.className, "select-none")}>
         <Navbar />
-        <div className="pt-14 sm:pt-0"
-        >{children}</div>
+        <div className="pt-14 sm:pt-0">{children}</div>
         <Footer />
-        </body>
+        <Toaster />
+      </body>
     </html>
   );
 }

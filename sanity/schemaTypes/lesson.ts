@@ -1,5 +1,6 @@
 import { defineField, defineType } from "sanity";
 import { slide } from "./slide";
+import { hangMan } from "./hangMan";
 
 export const lesson = defineType({
   name: "lesson",
@@ -38,6 +39,23 @@ export const lesson = defineType({
       title: "Slides",
       type: "array",
       of: [{ type: "slide" }],
+    }),
+
+    // TODO: Add a game field
+    defineField({
+      name: "hangman",
+      title: "Game Hangman",
+      type: "hangman",
+    }),
+    defineField({
+      name: "memory",
+      title: "Game Memory Card",
+      type: "memory",
+    }),
+    defineField({
+      name: "wordle",
+      title: "Game Wordle",
+      type: "wordle",
     }),
     defineField({
       name: "rating",
