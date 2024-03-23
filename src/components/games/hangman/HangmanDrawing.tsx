@@ -1,3 +1,5 @@
+// MAKE IT SCREEN RESPONSIVE
+
 import React from 'react'
 
 type Props = {}
