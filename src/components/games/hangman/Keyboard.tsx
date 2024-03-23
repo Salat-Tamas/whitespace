@@ -10,9 +10,11 @@ type KeyboardProps = {
     inactiveLetters: string[]
     addGuessedLetter: (letter: string) => void
     givenLetter: string
+    disabled?: boolean
 }
 
-export function Keyboard({activeLetters, inactiveLetters, addGuessedLetter, givenLetter}: KeyboardProps) {
+export function Keyboard({activeLetters, inactiveLetters, addGuessedLetter, givenLetter, disabled = false}: KeyboardProps) {
+    addGuessedLetter(givenLetter)
     return (
         <div className='flex max-w-[90%] flex-row items-center justify-center p-4' style={{display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(75px, 1fr))", gap: ".5rem"}}>
             {KEYS.map((key, i) => {
@@ -20,7 +22,7 @@ export function Keyboard({activeLetters, inactiveLetters, addGuessedLetter, give
                 const isInactive = inactiveLetters.includes(key)
                 const Hint = key === givenLetter;
                 return (
-                    <button key={i} onClick={() => addGuessedLetter(key)} disabled={isInactive || isActive || Hint}  className={`font-bold text-2xl p-4 rounded-lg hover:enabled:bg-blue-950 hover:enabled:text-gray-300 ${isActive || Hint ? "bg-indigo-600 text-gray-200" : "bg-gray-300 text-gray-800"} ${isInactive ? "opacity-30" : "bg-gray-300 text-gray-800"}`}>
+                    <button disabled={isInactive || isActive || Hint || disabled} key={i} onClick={() => addGuessedLetter(key)}  className={`font-bold text-2xl p-4 rounded-lg hover:enabled:bg-blue-950 hover:enabled:text-gray-300 ${isActive || Hint ? "bg-indigo-600 text-gray-200" : "bg-gray-300 text-gray-800"} ${isInactive ? "opacity-30" : "bg-gray-300 text-gray-800"}`}>
                         {key.toUpperCase()}
                     </button>
                 )
