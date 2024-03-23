@@ -28,6 +28,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import LessonCardMyLessons from "@/components/ui/LessonCardMyLessons";
+import { getProfileData } from "@/utils/supabase/profileUtilsClient";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   pfp: z.string(),
@@ -37,6 +38,7 @@ type Props = {};
 
 const page = (props: Props) => {
   const supabase = createClient();
+
   const [user, setUser] = useState<User>();
   useEffect(() => {
     async function getUser() {
@@ -45,10 +47,17 @@ const page = (props: Props) => {
       } = await supabase.auth.getUser();
       if (user) {
         setUser(user);
+      } else {
+        return;
       }
     }
     getUser();
   }, []);
+
+  const profile = getProfileData(user?.id);
+  profile.then((data) => {
+    console.log(data);
+  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -60,7 +69,8 @@ const page = (props: Props) => {
   if (!user) {
     return (
       <main className="flex justify-center items-center -mt-20 align-top min-h-screen">
-        <h1 className="text-3xl">You must be logged in to view this page</h1>
+        <h1 className="text-4xl">LOADING...</h1>
+        <h2 className="text-3xl">You must be logged in to view this page</h2>
       </main>
     );
   }
@@ -86,7 +96,13 @@ const page = (props: Props) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="The great pretender" {...field} />
+                    <Input
+                      disabled
+                      placeholder={
+                        user?.user_metadata.user_name || "The great pretender"
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     This is your public display name.
@@ -159,10 +175,9 @@ const page = (props: Props) => {
       <div className="flex flex-col justify-center items-center">
         <p className="text-2xl mr-12 ml-12 my-8">My lessons</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                <LessonCardMyLessons />
-                <LessonCardMyLessons />
-                <LessonCardMyLessons />
-                
+          <LessonCardMyLessons />
+          <LessonCardMyLessons />
+          <LessonCardMyLessons />
         </div>
       </div>
     </div>

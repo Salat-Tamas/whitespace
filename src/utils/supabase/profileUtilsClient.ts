@@ -10,7 +10,11 @@ export async function getProfileData(userId: UserIdentity) {
     .select("*")
     .eq("id", userId)
     .single();
-  if (error) throw error;
+  if (error) {
+    if (error.message === "Record not found") {
+      await createProfileData(userId);
+    } else throw error;
+  }
   return data;
 }
 
