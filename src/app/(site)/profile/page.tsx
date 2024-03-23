@@ -50,14 +50,14 @@ const page = (props: Props) => {
       } else {
         return;
       }
+      const profile = getProfileData(user?.id);
+      profile.then((data) => {
+        console.log(data);
+      });
     }
     getUser();
   }, []);
 
-  const profile = getProfileData(user?.id);
-  profile.then((data) => {
-    console.log(data);
-  });
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
