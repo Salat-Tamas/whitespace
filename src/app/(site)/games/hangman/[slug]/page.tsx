@@ -13,7 +13,7 @@ const page = ({ params }: { params: { slug: string } }) => {
   if (isLoading || hangman === undefined) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 
-  return <HangManComp hangman={hangman} />;
+  return <HangManComp hangman={hangman} slug={params.slug} />;
 };
 
 export default page;

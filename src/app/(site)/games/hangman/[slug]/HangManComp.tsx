@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Hangman } from "../../../../../../sanity/lib/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-const HangManComp = ({ hangman }: { hangman: Hangman }) => {
+const HangManComp = ({ hangman, slug }: { hangman: Hangman; slug: string }) => {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   hangman.word = hangman.word.toLowerCase();
   useEffect(() => {
@@ -61,7 +61,9 @@ const HangManComp = ({ hangman }: { hangman: Hangman }) => {
           {isLoser && (
             <div className="border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12">
               Lose!
-              <button onClick={() => router.refresh()}>AGAIN</button>
+              <button onClick={() => router.replace(`/lessons/${slug}`)}>
+                AGAIN
+              </button>
             </div>
           )}
         </div>
