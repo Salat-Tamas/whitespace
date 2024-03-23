@@ -17,16 +17,6 @@ import {
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import {
     Table,
@@ -36,41 +26,48 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Row } from "react-day-picker"
 
 const data: Player[] = [
     {
+        number: 4,
         id: "m5gr84i9",
         Score: 316,
-        subscription: "Creator",
-        Nickname: "ken99@yahoo.com",
+        nickname: "ken99@yahoo.com",
+        totalNumberOfGamesPlayed: 5
     },
     {
+        number: 5,
         id: "3u1reuv4",
         Score: 242,
-        subscription: "Creator",
-        Nickname: "Abe45@gmail.com",
+        nickname: "Abe45@gmail.com",
+        totalNumberOfGamesPlayed: 71
     },
     {
+        number: 2,
         id: "derv1ws0",
         Score: 837,
-        subscription: "Player",
-        Nickname: "Monserrat44@gmail.com",
+        nickname: "Monserrat44@gmail.com",
+        totalNumberOfGamesPlayed: 3
     },
     {
+        number: 1,
         id: "5kma53ae",
         Score: 874,
-        subscription: "Creator",
-        Nickname: "Silas22@gmail.com",
+        nickname: "Silas22@gmail.com",
+        totalNumberOfGamesPlayed: 0
     },
     {
+        number: 3,
         id: "bhqecj4p",
         Score: 721,
-        subscription: "Player",
-        Nickname: "carmella@hotmail.com",
+        nickname: "carmella@hotmail.com",
+        totalNumberOfGamesPlayed: 23
     },
 ]
 
 export type Player = {
+    number: number
     id: string
     Score: number
     Nickname: string
@@ -81,19 +78,12 @@ export const columns: ColumnDef<Player>[] = [
     {
         accessorKey: "number",
         header: "Number",
-        cell: ({ }) => (
-            <div className="capitalize">{ }</div>
-        ),
-    },
-    {
-        accessorKey: "subscription",
-        header: "Type",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("subscription")}</div>
+            <div className="capitalize">{ row.getValue("number")}</div>
         ),
     },
     {
-        accessorKey: "Nickname",
+        accessorKey: "nickname",
         header: ({ column }) => {
             return (
                 <Button
@@ -105,7 +95,14 @@ export const columns: ColumnDef<Player>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="lowercase">{row.getValue("Nickname")}</div>,
+        cell: ({ row }) => <div className="lowercase">{row.getValue("nickname")}</div>,
+    },
+    {
+        accessorKey: "totalNumberOfGamesPlayed",
+        header: "Total games played",
+        cell: ({ row }) => (
+            <div className="capitalize">{ row.getValue("totalNumberOfGamesPlayed")}</div>
+        ),
     },
     {
         accessorKey: "Score",
@@ -118,7 +115,8 @@ export const columns: ColumnDef<Player>[] = [
                 >
                     Score
                     <ArrowUpDown className="ml-2 h-[16px] w-[16px]" />
-                </Button></div>,
+                </Button>
+            </div>,
         cell: ({ row }) => {
             const Score = parseFloat(row.getValue("Score"))
 
@@ -134,7 +132,12 @@ export const columns: ColumnDef<Player>[] = [
 ]
 
 export function DataTableDemo() {
-    const [sorting, setSorting] = React.useState<SortingState>([])
+    const [sorting, setSorting] = React.useState<SortingState>([
+        {
+            id: "Score",
+            desc: true
+        },
+    ]);
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
         []
     )
@@ -162,7 +165,7 @@ export function DataTableDemo() {
     })
 
     return (
-        <div className="mx-8 my-4">
+        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter by nickname..."
@@ -172,32 +175,6 @@ export function DataTableDemo() {
                     }
                     className="max-w-sm"
                 />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" className="ml-auto">
-                            Columns <ChevronDown className="ml-2 h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        {table
-                            .getAllColumns()
-                            .filter((column) => column.getCanHide())
-                            .map((column) => {
-                                return (
-                                    <DropdownMenuCheckboxItem
-                                        key={column.id}
-                                        className="capitalize"
-                                        checked={column.getIsVisible()}
-                                        onCheckedChange={(value) =>
-                                            column.toggleVisibility(!!value)
-                                        }
-                                    >
-                                        {column.id}
-                                    </DropdownMenuCheckboxItem>
-                                )
-                            })}
-                    </DropdownMenuContent>
-                </DropdownMenu>
             </div>
             <div className="rounded-md border">
                 <Table>
@@ -226,13 +203,12 @@ export function DataTableDemo() {
                                     key={row.id}
                                     data-state={row.getIsSelected()}
                                 >
-                                    {row.getVisibleCells().map((cell, cellIndex) => (
+                                    {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
                                             )}
-                                            {cellIndex === 0 && rowIndex}
                                         </TableCell>
                                     ))}
                                 </TableRow>
