@@ -45,6 +45,7 @@ const Navbar = () => {
     }
     getUser();
   }, []);
+  
   const pathname = usePathname();
 
   const navigation = [
@@ -86,7 +87,7 @@ const Navbar = () => {
                       className="bg-white rounded-md"
                       height={40}
                       width={40}
-                      alt="Picture of the author"
+                      alt="Whitespace logo"
                     />
                   </Link>
                 </div>

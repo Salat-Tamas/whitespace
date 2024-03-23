@@ -175,7 +175,7 @@ export function Leaderboard() {
     })
 
     return (
-        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4">
+        <div className="mx-4 sm:px-8 md:mx-20 lg:mx-64 my-4 h-[80vh]">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter by nickname..."
