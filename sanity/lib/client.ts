@@ -52,7 +52,11 @@ export async function getSlides(slug: string): Promise<LessonSlide> {
   return client.fetch(
     groq`*[_type == "lesson" && slug.current == $slug ][0]  {
       title,
-      slides,
+      "slides" : slides[]{
+      title,
+      content,
+      "image": image.asset->url
+      }
       hangman,
       memory
   }`,
