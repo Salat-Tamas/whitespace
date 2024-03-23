@@ -61,9 +61,7 @@ const HangManComp = ({ hangman }: { hangman: Hangman }) => {
           {isLoser && (
             <div className="border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12">
               Lose!
-              <Link href="/games/hangman" className="text-red-500">
-                Play again
-              </Link>
+              <button onClick={() => router.refresh()}>AGAIN</button>
             </div>
           )}
         </div>
