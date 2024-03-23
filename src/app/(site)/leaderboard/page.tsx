@@ -41,31 +41,31 @@ const data: Player[] = [
     {
         id: "m5gr84i9",
         Score: 316,
-        rank: "Creator",
+        subscription: "Creator",
         Nickname: "ken99@yahoo.com",
     },
     {
         id: "3u1reuv4",
         Score: 242,
-        rank: "Creator",
+        subscription: "Creator",
         Nickname: "Abe45@gmail.com",
     },
     {
         id: "derv1ws0",
         Score: 837,
-        rank: "Player",
+        subscription: "Player",
         Nickname: "Monserrat44@gmail.com",
     },
     {
         id: "5kma53ae",
         Score: 874,
-        rank: "Creator",
+        subscription: "Creator",
         Nickname: "Silas22@gmail.com",
     },
     {
         id: "bhqecj4p",
         Score: 721,
-        rank: "Player",
+        subscription: "Player",
         Nickname: "carmella@hotmail.com",
     },
 ]
@@ -79,32 +79,17 @@ export type Player = {
 
 export const columns: ColumnDef<Player>[] = [
     {
-        id: "select",
-        header: ({ table }) => (
-            <Checkbox
-                checked={
-                    table.getIsAllPageRowsSelected() ||
-                    (table.getIsSomePageRowsSelected() && "indeterminate")
-                }
-                onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-                aria-label="Select all"
-            />
+        accessorKey: "number",
+        header: "Number",
+        cell: ({ }) => (
+            <div className="capitalize">{ }</div>
         ),
-        cell: ({ row }) => (
-            <Checkbox
-                checked={row.getIsSelected()}
-                onCheckedChange={(value) => row.toggleSelected(!!value)}
-                aria-label="Select row"
-            />
-        ),
-        enableSorting: false,
-        enableHiding: false,
     },
     {
-        accessorKey: "rank",
-        header: "Rank",
+        accessorKey: "subscription",
+        header: "Type",
         cell: ({ row }) => (
-            <div className="capitalize">{row.getValue("rank")}</div>
+            <div className="capitalize">{row.getValue("subscription")}</div>
         ),
     },
     {
@@ -124,54 +109,28 @@ export const columns: ColumnDef<Player>[] = [
     },
     {
         accessorKey: "Score",
-        header: ({ column }) => <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-            Score
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>,
+        header: ({ column }) =>
+            <div className="flex flex-row">
+                <div className="flex relative w-1/2 mr-4"></div>
+                <Button className="flex relative w-1/2"
+                    variant="ghost"
+                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                >
+                    Score
+                    <ArrowUpDown className="ml-2 h-[16px] w-[16px]" />
+                </Button></div>,
         cell: ({ row }) => {
             const Score = parseFloat(row.getValue("Score"))
 
             // Format the Score as a dollar Score
             const formatted = new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "USD",
+                currency: "EUR",
             }).format(Score)
 
             return <div className="text-right font-medium">{formatted}</div>
         },
     },
-    {
-        id: "actions",
-        enableHiding: false,
-        cell: ({ row }) => {
-            const payment = row.original
 
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        },
-    },
 ]
 
 export function DataTableDemo() {
@@ -203,13 +162,13 @@ export function DataTableDemo() {
     })
 
     return (
-        <div className="mx-8">
+        <div className="mx-8 my-4">
             <div className="flex items-center py-4">
                 <Input
                     placeholder="Filter by nickname..."
-                    value={(table.getColumn("Nickname")?.getFilterValue() as string) ?? ""}
+                    value={(table.getColumn("nickname")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("Nickname")?.setFilterValue(event.target.value)
+                        table.getColumn("nickname")?.setFilterValue(event.target.value)
                     }
                     className="max-w-sm"
                 />
@@ -262,17 +221,18 @@ export function DataTableDemo() {
                     </TableHeader>
                     <TableBody>
                         {table.getRowModel().rows?.length ? (
-                            table.getRowModel().rows.map((row) => (
+                            table.getRowModel().rows.map((row, rowIndex) => (
                                 <TableRow
                                     key={row.id}
-                                    data-state={row.getIsSelected() && "selected"}
+                                    data-state={row.getIsSelected()}
                                 >
-                                    {row.getVisibleCells().map((cell) => (
+                                    {row.getVisibleCells().map((cell, cellIndex) => (
                                         <TableCell key={cell.id}>
                                             {flexRender(
                                                 cell.column.columnDef.cell,
                                                 cell.getContext()
                                             )}
+                                            {cellIndex === 0 && rowIndex}
                                         </TableCell>
                                     ))}
                                 </TableRow>
@@ -289,30 +249,6 @@ export function DataTableDemo() {
                         )}
                     </TableBody>
                 </Table>
-            </div>
-            <div className="flex items-center justify-end space-x-2 py-4">
-                <div className="flex-1 text-sm text-muted-foreground">
-                    {table.getFilteredSelectedRowModel().rows.length} of{" "}
-                    {table.getFilteredRowModel().rows.length} row(s) selected.
-                </div>
-                <div className="space-x-2">
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                    >
-                        Previous
-                    </Button>
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                    >
-                        Next
-                    </Button>
-                </div>
             </div>
         </div>
     )
