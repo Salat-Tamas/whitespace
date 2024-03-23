@@ -1,7 +1,7 @@
-"use server";
+"use client";
 
 import { UserIdentity } from "@supabase/supabase-js";
-import { createClient } from "./server";
+import { createClient } from "./client";
 
 export async function getProfileData(userId: UserIdentity) {
   const supabase = createClient();

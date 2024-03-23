@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/client";
 
 type lessonProps = {
   params: {
@@ -24,12 +25,15 @@ type lessonProps = {
 };
 
 const page = ({ params }: lessonProps) => {
+  const supabase = createClient();
+
   const { data, error, isLoading } = useSWR(
     "/api/lessons",
     getSlides.bind(null, params.slug)
   );
   if (isLoading) return <Loader />;
   if (error || data === undefined) return <div>Error: {error}</div>;
+
   return (
     <div className="flex justify-center h-[800px] pt-7">
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
