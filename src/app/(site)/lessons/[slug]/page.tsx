@@ -48,7 +48,7 @@ const page = ({ params }: lessonProps) => {
             </CarouselItem>
           ))}
           <CarouselItem className="p-7">
-            <Card className="from-gray-800 to bg-indigo-600 h-full w-full">
+            <Card className="bg-gradient-to-tr from-gray-800 to-indigo-600 h-full w-full">
               <CardHeader>
                 <CardTitle className="text-4xl">Chose game</CardTitle>
               </CardHeader>
