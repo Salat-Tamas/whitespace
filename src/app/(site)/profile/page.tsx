@@ -137,7 +137,7 @@ const page = (props: Props) => {
           </form>
         </Form>
 
-        <div className="flex flex-col justify-center items-center gap-20 p-12 rounded-md bg-gradient-to-tr from-gray-900 to-indigo-500">
+        <div className="flex flex-col justify-center items-center gap-20 p-12 px-20 rounded-md bg-gradient-to-tr from-gray-900 to-indigo-500">
           <div className="flex flex-col items-center gap-4">
             <div>My subscription</div>
             <div>Premium</div>
@@ -160,7 +160,7 @@ const page = (props: Props) => {
       </div>
       {/* Ez csak a creator-nel*/}
       <div className="flex flex-col md:flex-row justify-center items-center">
-        <p className="text-2xl mr-12 my-8">My themes</p>
+        <p className="text-2xl mr-12 my-8">My lessons</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {themes.map(item => (
                   <div>{item}</div>
