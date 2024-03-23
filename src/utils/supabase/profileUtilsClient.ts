@@ -6,11 +6,15 @@ import { createClient } from "./client";
 export async function getProfileData(userId: UserIdentity) {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
+    .from("profile")
     .select("*")
     .eq("id", userId)
     .single();
-  if (error) throw error;
+  if (error) {
+    if (error.code === "PGRST116") {
+      await createProfileData(userId);
+    } else throw error;
+  }
   return data;
 }
 
@@ -24,7 +28,7 @@ export async function updateProfileData(
 ) {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
+    .from("profile")
     .update(updates)
     .eq("id", userId);
   if (error) throw error;
@@ -34,7 +38,7 @@ export async function updateProfileData(
 export async function createProfileData(userId: UserIdentity) {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
+    .from("profile")
     .insert([{ id: userId, score: 0, lessons: [] }]);
   if (error) throw error;
   return data;
@@ -43,7 +47,7 @@ export async function createProfileData(userId: UserIdentity) {
 export async function getUsersByScore() {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
+    .from("profile")
     .select("*")
     .order("score", { ascending: false });
   if (error) throw error;
@@ -53,7 +57,7 @@ export async function getUsersByScore() {
 export async function getUserTop3() {
   const supabase = createClient();
   const { data, error } = await supabase
-    .from("profiles")
+    .from("profile")
     .select("*")
     .order("score", { ascending: false })
     .range(0, 2);

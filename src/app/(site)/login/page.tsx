@@ -18,7 +18,7 @@ const Login = (props: Props) => {
         <h1 className="text-lg font-semibold text-center">Whitespace</h1>
         <Auth
           supabaseClient={supabase}
-          redirectTo="/"
+          redirectTo="/profile"
           appearance={{
             theme: ThemeSupa,
             variables: {

@@ -28,6 +28,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import LessonCardMyLessons from "@/components/ui/LessonCardMyLessons";
+import { getProfileData } from "@/utils/supabase/profileUtilsClient";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   pfp: z.string(),
@@ -37,6 +38,7 @@ type Props = {};
 
 const page = (props: Props) => {
   const supabase = createClient();
+
   const [user, setUser] = useState<User>();
   useEffect(() => {
     async function getUser() {
@@ -45,10 +47,17 @@ const page = (props: Props) => {
       } = await supabase.auth.getUser();
       if (user) {
         setUser(user);
+      } else {
+        return;
       }
+      const profile = getProfileData(user?.id);
+      profile.then((data) => {
+        console.log(data);
+      });
     }
     getUser();
   }, []);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,8 +68,9 @@ const page = (props: Props) => {
 
   if (!user) {
     return (
-      <main className="flex justify-center items-center -mt-20 align-top min-h-screen">
-        <h1 className="text-3xl">You must be logged in to view this page</h1>
+      <main className="flex flex-col gap-3 justify-center items-center -mt-20 align-top min-h-screen">
+        <h1 className="text-4xl font-bold">LOADING...</h1>
+        <h2 className="text-3xl">You must be logged in to view this page</h2>
       </main>
     );
   }
@@ -86,7 +96,13 @@ const page = (props: Props) => {
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="The great pretender" {...field} />
+                    <Input
+                      disabled
+                      placeholder={
+                        user?.user_metadata.user_name || "The great pretender"
+                      }
+                      {...field}
+                    />
                   </FormControl>
                   <FormDescription>
                     This is your public display name.
@@ -134,30 +150,30 @@ const page = (props: Props) => {
           </form>
         </Form>
 
-        <div className="flex flex-col justify-center items-center gap-20 p-12 px-20 rounded-md bg-gradient-to-tr from-gray-900 to-indigo-500">
+        <div className="flex flex-col text-gray-300 justify-center items-center gap-20 p-12 px-20 rounded-md bg-gradient-to-tr from-gray-900 to-indigo-500">
           <div className="flex flex-col items-center gap-4">
-            <div>My subscription</div>
-            <div>Premium</div>
+            <div className="text-3xl font-bold">My subscription</div>
+            <div className="text-xl">Premium</div>
           </div>
           <div className="flex flex-col items-center md:flex-row gap-20">
             <div className="flex flex-col items-center gap-4">
-              <div>Score</div>
+              <div className="font-bold">Score</div>
               <div>123</div>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <div>Ranking</div>
+              <div className="font-bold">Ranking</div>
               <div>5</div>
             </div>
             <div className="flex flex-col items-center gap-4">
-              <div>Games played</div>
+              <div className="font-bold">Games played</div>
               <div>90</div>
             </div>
           </div>
         </div>
       </div>
       {/* Ez csak a creator-nel*/}
-      <div className="flex flex-col justify-center items-center">
-        <p className="text-2xl mr-12 ml-12 my-8">My lessons</p>
+      <div className="flex flex-col justify-center items-center text-gray-300">
+        <h2 className="text-3xl flex flex-row justify-center my-8 font-bold">My Lessons</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
                 <LessonCardMyLessons title={"Health"}/>
                 <LessonCardMyLessons title={"Fitness"}/>
