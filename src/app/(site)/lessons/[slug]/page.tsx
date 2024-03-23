@@ -50,57 +50,63 @@ const page = ({ params }: lessonProps) => {
           <CarouselItem className="p-7">
             <Card className="bg-gradient-to-tr from-gray-800 to-indigo-600 h-full w-full">
               <CardHeader>
-                <CardTitle className="text-4xl">Chose game</CardTitle>
+                <CardTitle className="text-4xl">Choose game</CardTitle>
               </CardHeader>
               <CardContent className="h-full ">
                 <Separator />
                 <div className=" mt-8 flex gap-5 flex-col justify-between items-center md:flex-row h-full w-full">
                   {data.hangman?.word && (
-                    <Card className="from-gray-800 to bg-indigo-600 min-h-60 w-full">
+                    <Card className="bg-gradient-to-tr from-indigo-600 to-gray-800 min-h-60 w-full">
                       <CardHeader>
                         <CardTitle className="text-3xl">Hangman</CardTitle>
                       </CardHeader>
-                      <CardContent>
-                        <Image
-                          src="/assets/images/hangman.png"
-                          alt="Hangman"
-                          width={200}
-                          height={200}
-                        />
-                        <Link
-                          href={`/games/hangman/${params.slug}`}
-                          className={buttonVariants({
-                            variant: "secondary",
-                          })}
-                        >
-                          Play Game
-                        </Link>
+                      <CardContent className="flex flex-row justifiy-center">
+                        <div className="flex flex-col justify-center">
+                          <Image
+                            className="border-2 border-gray-950 rounded-lg"
+                            src="/assets/images/hangman.png"
+                            alt="Hangman"
+                            width={200}
+                            height={200}
+                          />
+                          <Link
+                            href={`/games/hangman/${params.slug}`}
+                            className={buttonVariants({
+                              variant: "secondary",
+                            })}
+                          >
+                            Play Game
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
                   )}
                   {data.memory?.title && (
-                    <Card className="from-gray-800 to bg-indigo-600 min-h-60 w-full">
+                    <Card className="bg-gradient-to-tr from-indigo-600 to-gray-800 min-h-60 w-full">
                       <CardHeader>
                         <CardTitle className="text-3xl">Memory Cards</CardTitle>
                       </CardHeader>
                       <CardContent>
+                      <div className="flex flex-col justify-center">
                         <Image
-                          src="/assets/images/hangman.png"
-                          alt="Hangman"
-                          width={200}
-                          height={200}
-                        />
-                        <Link
-                          href={{
-                            pathname: "/games/memory-cards",
-                            query: data.memory.title,
-                          }}
-                          className={buttonVariants({
-                            variant: "secondary",
-                          })}
-                        >
-                          Play Game
-                        </Link>
+                            className="border-2 border-gray-950 rounded-lg"
+                            src="/assets/images/hangman.png"
+                            alt="Hangman"
+                            width={200}
+                            height={200}
+                          />
+                          <Link
+                            href={{
+                              pathname: "/games/memory-cards",
+                              query: data.memory.title,
+                            }}
+                            className={buttonVariants({
+                              variant: "secondary",
+                            })}
+                          >
+                            Play Game
+                          </Link>
+                      </div>
                       </CardContent>
                     </Card>
                   )}
