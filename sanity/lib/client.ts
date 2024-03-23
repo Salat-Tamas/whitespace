@@ -32,7 +32,6 @@ export async function getLessons(): Promise<Lesson[]> {
 export interface LessonSlide {
   title: string;
   slides: Slide[];
-  image: string;
   hangman: {
     title: string;
     word: string;
@@ -50,13 +49,13 @@ export interface Slide {
 }
 export async function getSlides(slug: string): Promise<LessonSlide> {
   return client.fetch(
-    groq`*[_type == "lesson" && slug.current == $slug ][0]  {
+    groq`*[_type == "lesson" && slug.current == $slug ][0]{
       title,
       "slides" : slides[]{
       title,
       content,
       "image": image.asset->url
-      }
+      },
       hangman,
       memory
   }`,
