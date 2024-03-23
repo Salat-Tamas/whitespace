@@ -9,7 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Image from "next/image";
 import { createClient } from "@/utils/supabase/client";
 import { toast } from "../ui/use-toast";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { User } from "@supabase/supabase-js";
 
 function classNames(...classes: any) {
@@ -29,6 +29,7 @@ const Navbar = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<User>();
 
+  const router = useRouter();
   useEffect(() => {
     async function getUser() {
       const {
@@ -37,6 +38,9 @@ const Navbar = () => {
       if (user) {
         setUser(user);
         setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+        router.refresh();
       }
     }
     getUser();
@@ -108,10 +112,10 @@ const Navbar = () => {
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="flex flex-row mr-4 p-2 rounded-md items-center bg-gradient-to-tr from-blue-900 to-yellow-600 cursor-pointer transition-colors duration-[0.6s] ease-in-out hover:from-blue-900 hover:to-amber-600">
-                  <div className="mx-4 text-xs sm:text-md">
-                    {" "}
+                  <Link className="mx-4 text-xs sm:text-md"
+                  href="/become-a-creator">
                     Become a creator!
-                  </div>
+                  </Link>
                   {/* <div className="relative w-8 h-8 md:w-10 md:h-10">
                     <Image 
                     src="/assets/images/shape-creator.png" alt="Become a creator picture"
@@ -190,7 +194,10 @@ const Navbar = () => {
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
-                              onClick={signOut}
+                              onClick={() => {
+                                signOut();
+                                router.refresh();
+                              }}
                             >
                               Sign out
                             </Link>

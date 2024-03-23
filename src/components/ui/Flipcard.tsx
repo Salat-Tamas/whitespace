@@ -25,7 +25,7 @@ const Flipcard = (props: FlipcardProps) => {
   }
 
   return (
-    <div className="flex items-center justify-center m-1 h-[150px] md:h-[300px] md:m-2 lg:h-[350px] cursor-pointer">
+    <div className="flex items-center justify-center m-1 h-[150px] md:h-[300px] md:m-2 lg:h-[350px] cursor-pointer hover:scale-105 ease-in-out duration-300">
       <div
         className="flip-card w-[150px] h-[150px] md:w-[300px] md:h-[300px] lg:w-[550px] lg:h-[350px] rounded-md"
         onClick={handleFLip}
