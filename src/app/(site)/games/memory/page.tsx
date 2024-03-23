@@ -111,7 +111,7 @@ const page = () => {
         const flipped = flippedCards.includes(card.id);
         return (
            <div className='grid items-center justify-center m-1 w-[150px] h-[150px] md:h-[300px] md:w-[300px] md:m-2 lg:h-[350px] lg:w-[350px] cursor-pointer hover:scale-105 ease-in-out duration-300'>
-            <Memorycard {...card}/>
+            {/* <Memorycard {...card}/> */}
           </div>
         )
       })}
