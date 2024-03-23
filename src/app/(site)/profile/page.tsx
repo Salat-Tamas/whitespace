@@ -27,6 +27,7 @@ import { toast } from "@/components/ui/use-toast";
 import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
+import LessonCardMyLessons from "@/components/ui/LessonCardMyLessons";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   pfp: z.string(),
@@ -73,12 +74,8 @@ const page = (props: Props) => {
     });
   }
 
-  const themes = [
-    "Fitness", "Health", "Work", "Mathematics", "History"
-  ]
-
   return (
-    <div className="flex flex-col justify-center items-center my-80 sm:my-72 md:my-0 h-[100vh] gap-20">
+    <div className="flex flex-col justify-center items-center my-60 sm:my-36 md:my-16 min-h-[100vh] gap-20">
       <div className="flex flex-col md:flex-row gap-32">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -159,12 +156,13 @@ const page = (props: Props) => {
         </div>
       </div>
       {/* Ez csak a creator-nel*/}
-      <div className="flex flex-col md:flex-row justify-center items-center">
-        <p className="text-2xl mr-12 my-8">My lessons</p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {themes.map(item => (
-                  <div>{item}</div>
-                ))}
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-2xl mr-12 ml-12 my-8">My lessons</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                <LessonCardMyLessons />
+                <LessonCardMyLessons />
+                <LessonCardMyLessons />
+                
         </div>
       </div>
     </div>

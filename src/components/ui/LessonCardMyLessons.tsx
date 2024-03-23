@@ -8,10 +8,10 @@ type slide = {
   image?: string;
 };
 
-const Lessoncard = ({ title, content, image }: slide) => {
+const LessonCardMyLessons = ({ title, content, image }: slide) => {
   return (
     <div className="flex flex-col items-center justify-start w-full h-full p-5">
-      <div className="border-2 border-gray-950 bg-gradient-to-tr from-gray-800 to bg-indigo-600 w-full h-[700px] p-6 rounded-3xl">
+      <div className="border-2 border-gray-950 bg-gradient-to-tr from-gray-800 to bg-indigo-600 w-[300px] h-[225px] lg:w-[400px] lg:h-[300px] p-6 rounded-3xl">
         <div className="text-3xl font-bold text-white overflow-hidden pb-4 border-b-2 border-gray-800">
           <h2>{title}</h2>
         </div>
@@ -22,7 +22,7 @@ const Lessoncard = ({ title, content, image }: slide) => {
               src={image}
               alt={title}
               fill
-              className="w-full h-[300px] object-cover"
+              className="w-full h-full object-cover"
             />
           )}
         </div>
@@ -31,4 +31,4 @@ const Lessoncard = ({ title, content, image }: slide) => {
   );
 };
 
-export default Lessoncard;
+export default LessonCardMyLessons;
