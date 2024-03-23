@@ -11,8 +11,8 @@ const SubscriptionCard = () => {
         <Image
         className=""
           alt="Subscription image"
-          height={60}
-          width={60}
+          height={70}
+          width={70}
           src="/assets/images/premium.png"
         />
         <div className="flex flex-col mx-8">

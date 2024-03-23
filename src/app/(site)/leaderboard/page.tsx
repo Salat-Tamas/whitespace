@@ -74,7 +74,7 @@ export type Player = {
     totalNumberOfGamesPlayed: number
 }
 
-export const columns: ColumnDef<Player>[] = [
+const columns: ColumnDef<Player>[] = [
     {
         accessorKey: "number",
         header: "Number",
