@@ -66,7 +66,7 @@ const data: Player[] = [
     },
 ]
 
-export type Player = {
+type Player = {
     number: number
     id: string
     Score: number
