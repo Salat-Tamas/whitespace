@@ -1,82 +1,99 @@
-// "use client";
-// import MemFlipCard from "@/components/games/memory/MemFlipCard";
-// import React from "react";
+'use client'
 
-// type Props = {};
+import Memorycard from '@/components/ui/Memorycard'
+import React, { useEffect, useState } from 'react'
+import { set } from 'sanity'
 
-// const shuffle = ([...arr]) => {
-//   let m = arr.length;
-//   while (m) {
-//     const i = Math.floor(Math.random() * m--);
-//     [arr[m], arr[i]] = [arr[i], arr[m]];
-//   }
-//   return arr;
-// };
+export type MemorycardProps = {
+  content: string,
+  id: number,
+}
 
-// const page = (props: Props) => {
-//   //TODO: fetch data from sanity
-//   var titles = ["title1", "title2", "title3"];
-//   titles = [...titles, ...titles];
-//   titles = shuffle(titles);
-//   const [flipped, setFlipped] = React.useState<>([]);
-//   const [solved, setSolved] = React.useState([]);
-//   const [moves, setMoves] = React.useState(0);
-//   const [gameOver, setGameOver] = React.useState(false);
+const cards1 = [
+  {
+    content: 'content12',
+    id: 2,
+  },
+  {
+    content: 'content13',
+    id: 3,
+  },
+  {
+    content: 'content14',
+    id: 4,
+  },
+  {
+    content: 'content15',
+    id: 5,
+  },
+  {
+    content: 'content16',
+    id: 6,
+  },
+  {
+    content: 'content17',
+    id: 7,
+  }
+  
+]
 
-//   React.useEffect(() => {
-//     initGame();
-//   }, []);
+const cards2 = [
+  {
+    content: 'content22',
+    id: 2,
+  },
+  {
+    content: 'content23',
+    id: 3,
+  },
+  {
+    content: 'content24',
+    id: 4,
+  },
+  {
+    content: 'content25',
+    id: 5,
+  },
+  {
+    content: 'content26',
+    id: 6,
+  },
+  {
+    content: 'content27',
+    id: 7,
+  }
+]
 
-//   const initGame = () => {
-//     setFlipped([]);
-//     setSolved([]);
-//     setMoves(0);
-//     setGameOver(false);
-//   };
+const page = () => {
+  const [boardData, setBoardData] = useState<MemorycardProps[]>([])
+  const [flippedCards, setFlippedCards] = useState([])
+  const [foundCards, setFoundCards] = useState([])
+  const [moves, setMoves] = useState(0)
+  const [gameOver, setGameOver] = useState(false)
 
-//   const handleCLick = (i: number) => {
-//     if (flipped.length === 2) {
-//       setTimeout(() => {
-//         setFlipped([]);
-//       }, 1000);
-//     } else {
-//       setFlipped([...flipped, i]);
-//     }
-//   };
+  useEffect(() => {
+    initialize();
+  }, []);
 
-//   return (
-//     <main className="flex justify-center items-center w-full h-full pt-10 min-h-screen">
-//       <div className="flex flex-wrap gap-2 md:gap-8">
-//         {titles.map((title, i) => {
-//           const [isFlipped, setIsFlipped] = React.useState(false);
-//           if (flipped.includes(i) || solved.includes(i)) {
-//             setIsFlipped(true);
-//           }
-//           return (
-//             <div key={i} onClick={() => handleCLick(i)}>
-//               <MemFlipCard
-//                 title={title}
-//                 isFlipped={isFlipped}
-//                 setIsFlipped={setIsFlipped}
-//               />
-//             </div>
-//           );
-//         })}
-//       </div>
-//     </main>
-//   );
-// };
+  const initialize = () => {
+    shuffle()
+    setFlippedCards([])
+    setFoundCards([])
+    setMoves(0)
+    setGameOver(false)
+  }
 
-// export default page;
+  const shuffle = () => {
+    const shuffledCards = [...cards1, ...cards2].sort(() => Math.random() - 0.5).map((v) => v);
+    setBoardData(shuffledCards);
+  }
+  return (
+    <div className=' min-h-[90vh] w-full h-full border-2 border-red-600 flex-wrap flex justify-center'>
+      {boardData.map((card, i) => (
+        <Memorycard key={i} content={card.content} id={card.id}/>
+      ))}
+    </div>
+  )
+}
 
-// FIXME
-
-import React from "react";
-
-type Props = {};
-
-const page = (props: Props) => {
-  return <div>page</div>;
-};
-
-export default page;
+export default page
