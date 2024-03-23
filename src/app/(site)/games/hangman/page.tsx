@@ -1,35 +1,53 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { HangmanDrawing } from '@/components/games/hangman/HangmanDrawing'
 import { HangmanWord } from '@/components/games/hangman/HangmanWord'
-import Keyboard from '@/components/games/hangman/Keyboard'
-import { randomInt } from 'crypto'
+import { Keyboard } from '@/components/games/hangman/Keyboard'
 
-type Props = {}
+const word = "hangmanword"
 
-const word = "HELLO"
-
-const page = (props: Props) => {
+const page = () => {
     const [wordToGuess, setWordToGuess] = useState(() => {
         return word;
     })
+
+    const givenLetter = "a"
 
     const [guessedLetters, setGuessedLetters] = useState<string[]>([])
 
     const incorrectLetters = guessedLetters.filter(letter => !wordToGuess.includes(letter))
 
-    useEffect(() => {
-        /* DO THE LOGISITICS OF TEH GAME! */
-    })
+    const addGuessedLetter = useCallback((letter: string) => {
+        if(guessedLetters.includes(letter)) return
 
-    return <div className='flex flex-col gap-8 m-auto items-center p-6 min-h-[90vh]'>
+        setGuessedLetters(currentLetters => [...currentLetters, letter])
+    }, [guessedLetters])
+
+    useEffect(() => {
+        const handler = (e: KeyboardEvent) => {
+            const key = e.key
+
+            if(!key.match(/^[a-z]$/)) return
+            
+            e.preventDefault()
+            addGuessedLetter(key)
+        }
+
+        document.addEventListener("keypress", handler);
+
+        return () => {
+            document.removeEventListener("keypress", handler);
+        }
+    }, [guessedLetters])
+
+    return <div className='flex flex-col gap-8 justify-center max-w-screen items-center p-6 min-h-[90vh]'>
         <div className='text-xl text-center'>
             Lose Win
         </div>
         <HangmanDrawing numberOfGuesses={incorrectLetters.length}/>
-        <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} givenLetter={wordToGuess[Math.floor(Math.random() * wordToGuess.length)]}/>
+        <HangmanWord guessedLetters={guessedLetters} wordToGuess={wordToGuess} givenLetter={givenLetter}/>
         <div className='self-stretch'>
-            <Keyboard />
+            <Keyboard activeLetters={guessedLetters.filter(letter => wordToGuess.includes(letter))} inactiveLetters={incorrectLetters} addGuessedLetter={addGuessedLetter}/>
         </div>
     </div>;
 }
