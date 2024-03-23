@@ -175,9 +175,9 @@ const page = (props: Props) => {
       <div className="flex flex-col justify-center items-center">
         <p className="text-2xl mr-12 ml-12 my-8">My lessons</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
-          <LessonCardMyLessons />
-          <LessonCardMyLessons />
-          <LessonCardMyLessons />
+          <LessonCardMyLessons title={"one"} />
+          <LessonCardMyLessons title={"two"} />
+          <LessonCardMyLessons title={"three"} />
         </div>
       </div>
     </div>

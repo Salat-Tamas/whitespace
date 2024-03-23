@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 import type { NextRequest } from "next/server";
+// @ts-ignore
 import type { Database } from "@/lib/database.types";
 
 export async function GET(request: NextRequest) {
