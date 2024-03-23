@@ -50,10 +50,10 @@ const page = (props: Props) => {
       } else {
         return;
       }
-      const profile = getProfileData(user?.id);
-      profile.then((data) => {
-        console.log(data);
-      });
+      // // const profile = getProfileData(user?.id);
+      // profile.then((data) => {
+      //   console.log(data);
+      // });
     }
     getUser();
   }, []);
