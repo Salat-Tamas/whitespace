@@ -70,7 +70,7 @@ export type Player = {
     number: number
     id: string
     Score: number
-    Nickname: string
+    nickname: string
     totalNumberOfGamesPlayed: number
 }
 

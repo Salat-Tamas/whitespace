@@ -3,7 +3,7 @@ import React from 'react'
 
 const BecomeACreator = () => {
   return (
-    <div className='flex justify-center mt-4'>
+    <div className='flex justify-center my-12 md:my-36'>
       <SubscriptionCard />
     </div>
   )

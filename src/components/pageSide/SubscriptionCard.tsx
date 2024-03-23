@@ -1,22 +1,23 @@
 'use client'
 
 import React from "react";
-import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@nextui-org/react";
+import {Card, CardHeader, CardBody, CardFooter, Divider, Link} from "@nextui-org/react";
+import Image from "next/image";
 
 const SubscriptionCard = () => {
   return (
-    <Card className="max-w-[400px] bg-white">
-      <CardHeader className="flex gap-3">
+    <Card className="max-w-[400px] text-white border-2 border-gray-950 bg-gradient-to-tr from-gray-800 to bg-indigo-600 w-full p-6 rounded-3xl">
+      <CardHeader className="flex justify-center gap-3">
         <Image
-          alt="nextui logo"
-          height={40}
-          radius="sm"
-          src="https://avatars.githubusercontent.com/u/86160567?s=200&v=4"
-          width={40}
+        className=""
+          alt="Subscription image"
+          height={60}
+          width={60}
+          src="/assets/images/premium.png"
         />
-        <div className="flex flex-col">
-          <p className="text-md">NextUI</p>
-          <p className="text-small text-default-500">nextui.org</p>
+        <div className="flex flex-col mx-8">
+          <p className="text-2xl">Premium</p>
+          <p className="text-small text-default-500">Become a creator!</p>
         </div>
       </CardHeader>
       <Divider/>
