@@ -10,7 +10,7 @@ export default function Chat() {
   const { submitUserMessage } = useActions<typeof AI>();
 
   return (
-    <div className="max-w-30 max-h-70 p-7 bg-blue-950 rounded-md z-30">
+    <div className="max-w-30 max-h-70 p-3 bg-blue-950 rounded-md bottom-0 right-0">
       {
         // View messages in UI state
         messages.map((message: any) => (

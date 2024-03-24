@@ -16,7 +16,7 @@ const Lessoncard = ({ title, content, image }: slide) => {
           <h2>{title}</h2>
         </div>
         <div className="pt-4 text-white relative w-full h-[90%] flex flex-col justify-between">
-          <div>
+          <div className=''>
             <p>{content}</p>
           </div>
           <div className="">
