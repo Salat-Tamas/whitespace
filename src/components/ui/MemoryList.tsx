@@ -86,7 +86,7 @@ export function MemoryList({items} : {items: string[]}) {
             </FormItem>
           )}
         />
-        <div className="flex flex-row justify-end p-2"><Button className="absolute top-[375px]" type="submit">Done!</Button></div>
+        <div className="flex flex-row justify-end p-2 sm:absolute sm:bottom-[30%]"><Button className="absolute top-[350px] sm:top-0" type="submit">Done!</Button></div>
       </form>
     </Form>
   )
