@@ -1,66 +1,37 @@
-"use client";
+"use server";
 
 import { UserIdentity } from "@supabase/supabase-js";
 import { createClient } from "./client";
 
-export async function getProfileData(userId: UserIdentity) {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profile")
+export const getProfile = async (userId: string) => {
+  const { data, error } = await createClient()
+    .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
-  if (error) {
-    if (error.code === "PGRST116") {
-      await createProfileData(userId);
-    } else throw error;
-  }
-  return data;
-}
 
-export interface ProfileDataUpdate {
-  score: number;
-  lessons: JSON;
-}
-export async function updateProfileData(
-  userId: UserIdentity,
-  updates: ProfileDataUpdate
-) {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profile")
-    .update(updates)
+  if (data == null) return createProfile(userId);
+
+  return data;
+};
+
+export const createProfile = async (userId: string) => {
+  const { data, error } = await createClient()
+    .from("profiles")
+    .insert([
+      {
+        id: userId,
+      },
+    ]);
+
+  return data;
+};
+
+export const addScore = async (userId: string, score: number) => {
+  const { data, error } = await createClient()
+    .from("profiles")
+    .update({ score: score })
     .eq("id", userId);
-  if (error) throw error;
-  return data;
-}
 
-export async function createProfileData(userId: UserIdentity) {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profile")
-    .insert([{ id: userId, score: 0, lessons: [] }]);
-  if (error) throw error;
   return data;
-}
-
-export async function getUsersByScore() {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profile")
-    .select("*")
-    .order("score", { ascending: false });
-  if (error) throw error;
-  return data;
-}
-
-export async function getUserTop3() {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("profile")
-    .select("*")
-    .order("score", { ascending: false })
-    .range(0, 2);
-  if (error) throw error;
-  return data;
-}
+};

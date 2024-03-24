@@ -28,7 +28,7 @@ import { createClient } from "@/utils/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import LessonCardMyLessons from "@/components/ui/LessonCardMyLessons";
-import { getProfileData } from "@/utils/supabase/profileUtilsClient";
+import { getProfile } from "@/utils/supabase/profileUtils";
 const formSchema = z.object({
   username: z.string().min(2).max(50),
   pfp: z.string(),
@@ -40,6 +40,7 @@ const page = (props: Props) => {
   const supabase = createClient();
 
   const [user, setUser] = useState<User>();
+  const [profile, setProfile] = useState<any>();
   useEffect(() => {
     async function getUser() {
       const {
@@ -47,14 +48,13 @@ const page = (props: Props) => {
       } = await supabase.auth.getUser();
       if (user) {
         setUser(user);
+        const profileData = getProfile(user.id);
+        setProfile(profileData);
       } else {
-        return;
+        return <div>Loading...Only signed users allowed</div>;
       }
-      // // const profile = getProfileData(user?.id);
-      // profile.then((data) => {
-      //   console.log(data);
-      // });
     }
+
     getUser();
   }, []);
 
@@ -98,9 +98,7 @@ const page = (props: Props) => {
                   <FormControl>
                     <Input
                       disabled
-                      placeholder={
-                        user?.user_metadata.user_name || "The great pretender"
-                      }
+                      placeholder={user?.user_metadata.name}
                       {...field}
                     />
                   </FormControl>
@@ -158,7 +156,7 @@ const page = (props: Props) => {
           <div className="flex flex-col items-center md:flex-row gap-20">
             <div className="flex flex-col items-center gap-4">
               <div className="font-bold">Score</div>
-              <div>123</div>
+              <div>{profile.score}</div>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="font-bold">Ranking</div>
@@ -173,12 +171,13 @@ const page = (props: Props) => {
       </div>
       {/* Ez csak a creator-nel*/}
       <div className="flex flex-col justify-center items-center text-gray-300">
-        <h2 className="text-3xl flex flex-row justify-center my-8 font-bold">My Lessons</h2>
+        <h2 className="text-3xl flex flex-row justify-center my-8 font-bold">
+          My Lessons
+        </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-8">
-                <LessonCardMyLessons title={"Health"}/>
-                <LessonCardMyLessons title={"Fitness"}/>
-                <LessonCardMyLessons title={"Education"}/>
-                
+          <LessonCardMyLessons title={"Health"} />
+          <LessonCardMyLessons title={"Fitness"} />
+          <LessonCardMyLessons title={"Education"} />
         </div>
       </div>
     </div>
