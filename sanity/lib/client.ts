@@ -77,3 +77,19 @@ export async function getHangman(slug: string): Promise<Hangman> {
     { slug }
   );
 }
+
+export interface Memory {
+  relevantCards: string[];
+  irrelevantCards: string[];
+}
+export async function getMemmo(slug: string): Promise<Memory> {
+  return await client.fetch(
+    groq`*[_type == "lesson" && slug.current == $slug ][0]  {
+
+      "relevantCards" : memory.relevantCards,
+       "irrelevantCards": memory.irrelevantCards
+
+   }`,
+    { slug }
+  );
+}
