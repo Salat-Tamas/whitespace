@@ -4,29 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MemoryList } from "@/components/ui/MemoryList";
 import useSWR from "swr";
-import { getMemmo } from "../../../../../sanity/lib/client";
-
-const CardDataRelevant = [
-  "relevant1",
-  "relevant2",
-  "relevant3",
-  "relevant4",
-  "relevant5",
-  "relevant6",
-  "relevant7",
-  "relevant8",
-];
-
-const CardDataIrrelevant = [
-  "irrelevant1",
-  "irrelevant2",
-  "irrelevant3",
-  "irrelevant4",
-  "irrelevant5",
-  "irrelevant6",
-  "irrelevant7",
-  "irrelevant8",
-];
+import { getMemmo } from "../../../../../../sanity/lib/client";
 
 const page = ({ params }: { params: { slug: string } }) => {
   const { data, isLoading, error } = useSWR(
@@ -34,11 +12,15 @@ const page = ({ params }: { params: { slug: string } }) => {
     getMemmo.bind(null, params.slug)
   );
 
+  if (isLoading) return <div>Loading...</div>;
+  if (error || data === undefined) return <div>Error</div>;
+
   function shuffle(array: string[]) {
     return array.sort(() => Math.random() - 0.5);
   }
-  var array = [...CardDataRelevant, ...CardDataIrrelevant];
-  var array2 = [...CardDataRelevant, ...CardDataIrrelevant];
+
+  var array = [...data.relevantCards, ...data.irrelevantCards];
+  var array2 = [...data.relevantCards, ...data.irrelevantCards];
   const shuffledData = shuffle(array);
   const shuffledData2 = shuffle(array2);
   return (
