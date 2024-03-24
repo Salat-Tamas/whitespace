@@ -91,8 +91,8 @@ const page = ({ params }: lessonProps) => {
                         <div className="flex flex-col justify-center">
                           <Image
                             className="border-2 border-gray-950 rounded-lg"
-                            src="/assets/images/hangman.png"
-                            alt="Hangman"
+                            src="/assets/images/memory.png"
+                            alt="Memory"
                             width={200}
                             height={200}
                           />
