@@ -36,7 +36,7 @@ const page = ({ params }: lessonProps) => {
   if (error || data === undefined) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex justify-center h-[800px] pt-7 relative">
+    <div className="flex justify-center min-h-[90vh] h-[800px] pt-7 relative">
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
         <CarouselContent>
           {data.slides.map((slide, index) => (
