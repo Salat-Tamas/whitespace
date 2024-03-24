@@ -12,10 +12,18 @@ export const memory = defineType({
       validation: (Rule) => Rule.required().max(50),
     }),
     defineField({
-      title: "Cards",
-      name: "cards",
+      title: "Relevant Cards",
+      name: "relevantCards",
       type: "array",
       of: [{ type: "string" }],
+      validation: (Rule) => Rule.required().max(50),
+    }),
+    defineField({
+      title: "Irrelevant Cards",
+      name: "irrelevantCards",
+      type: "array",
+      of: [{ type: "string" }],
+      validation: (Rule) => Rule.required().max(50),
     }),
   ],
 });
