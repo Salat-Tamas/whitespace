@@ -98,10 +98,7 @@ const page = ({ params }: lessonProps) => {
                             height={200}
                           />
                           <Link
-                            href={{
-                              pathname: "/games/memory-cards",
-                              query: data.memory.title,
-                            }}
+                            href={`/games/memory/${params.slug}`}
                             className={buttonVariants({
                               variant: "secondary",
                             })}
