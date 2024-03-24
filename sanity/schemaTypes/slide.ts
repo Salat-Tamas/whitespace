@@ -18,7 +18,7 @@ export const slide = defineType({
       title: "Content",
       description: "The content of the slide",
       type: "text",
-      validation: (Rule) => Rule.required().max(500),
+      validation: (Rule) => Rule.max(500),
     }),
     defineField({
       name: "image",
