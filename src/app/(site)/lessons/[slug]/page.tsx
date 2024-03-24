@@ -17,7 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
-import { Chat } from "openai/resources/index.mjs";
+import Chat from "@/components/pageSide/Chat";
 
 type lessonProps = {
   params: {
@@ -37,7 +37,9 @@ const page = ({ params }: lessonProps) => {
 
   return (
     <div className="flex justify-center h-[800px] pt-7 relative">
-      <div className="absolute right-10 bottom-10">cheat</div>
+      <div className="absolute right-10 bottom-10">
+        <Chat />
+      </div>
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
         <CarouselContent>
           {data.slides.map((slide, index) => (
