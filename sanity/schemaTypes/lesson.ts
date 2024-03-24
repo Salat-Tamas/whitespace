@@ -27,6 +27,15 @@ export const lesson = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "image",
+      title: "Image",
+      description: "The image for the lesson",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+    }),
+    defineField({
       name: "description",
       description: "A short description of the lesson",
       title: "Description",
