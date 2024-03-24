@@ -39,7 +39,8 @@ export interface LessonSlide {
   };
   memory: {
     title: string;
-    cards: string[];
+    relevantCards: string[];
+    irrelevantCards: string[];
   };
 }
 export interface Slide {

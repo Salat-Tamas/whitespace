@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
+import { Chat } from "openai/resources/index.mjs";
 
 type lessonProps = {
   params: {
@@ -35,7 +36,8 @@ const page = ({ params }: lessonProps) => {
   if (error || data === undefined) return <div>Error: {error}</div>;
 
   return (
-    <div className="flex justify-center h-[800px] pt-7">
+    <div className="flex justify-center h-[800px] pt-7 relative">
+      <div className="absolute right-10 bottom-10">cheat</div>
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
         <CarouselContent>
           {data.slides.map((slide, index) => (
@@ -87,8 +89,8 @@ const page = ({ params }: lessonProps) => {
                         <CardTitle className="text-3xl">Memory Cards</CardTitle>
                       </CardHeader>
                       <CardContent>
-                      <div className="flex flex-col justify-center">
-                        <Image
+                        <div className="flex flex-col justify-center">
+                          <Image
                             className="border-2 border-gray-950 rounded-lg"
                             src="/assets/images/hangman.png"
                             alt="Hangman"
@@ -106,7 +108,7 @@ const page = ({ params }: lessonProps) => {
                           >
                             Play Game
                           </Link>
-                      </div>
+                        </div>
                       </CardContent>
                     </Card>
                   )}
