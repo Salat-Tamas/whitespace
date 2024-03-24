@@ -87,7 +87,7 @@ const page = ({ params }: lessonProps) => {
                       <CardHeader>
                         <CardTitle className="text-3xl">Memory Cards</CardTitle>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="flex flex-row justifiy-center">
                         <div className="flex flex-col justify-center">
                           <Image
                             className="border-2 border-gray-950 rounded-lg"
