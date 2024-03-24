@@ -13,35 +13,17 @@ function Spinner() {
 }
 
 // An example of a flight card component.
-function FlightCard({
-  flightInfo,
-}: {
-  flightInfo: { flightNumber: string; departure: string; arrival: string };
-}) {
-  return (
-    <div>
-      <h2>Flight Information</h2>
-      <p>Flight Number: {flightInfo.flightNumber}</p>
-      <p>Departure: {flightInfo.departure}</p>
-      <p>Arrival: {flightInfo.arrival}</p>
-    </div>
-  );
-}
 
-// An example of a function that fetches flight information from an external API.
-async function getFlightInfo(flightNumber: string) {
+async function getData(Education: string) {
   return {
-    flightNumber,
-    departure: "New York",
-    arrival: "San Francisco",
+    Education,
+    learning: "Learning",
   };
 }
-
-//@ts-ignore
+// @ts-ignore
 async function submitUserMessage(userInput: string) {
   "use server";
-
-  //   @ts-ignore
+  // @ts-ignore
   const aiState = getMutableAIState<typeof AI>();
 
   // Update the AI state with the new user message.
@@ -54,13 +36,16 @@ async function submitUserMessage(userInput: string) {
   ]);
 
   // The `render()` creates a generated, streamable UI.
-  //@ts-ignore
+  // @ts-ignore
   const ui = render({
-    model: "gpt-4-0125-preview",
+    model: "gpt-3.5-turbo",
     provider: openai,
     messages: [
-      { role: "system", content: "You are a flight assistant" },
-      //   @ts-ignore
+      {
+        role: "system",
+        content:
+          "You are a helper for a tudent, something like a teacher.You will explain everything respectfully and really well, but shortly.",
+      },
       ...aiState.get(),
     ],
     // `text` is called when an AI returns a text response (as opposed to a tool call).
@@ -82,18 +67,19 @@ async function submitUserMessage(userInput: string) {
     },
     tools: {
       get_flight_info: {
-        description: "Get the information for a flight",
+        description: "Get information for student questions",
         parameters: z
           .object({
-            flightNumber: z.string().describe("the number of the flight"),
+            Education: z.string().describe("The student's question."),
           })
           .required(),
-        render: async function* ({ flightNumber }) {
+        render: async function* ({ Education }) {
           // Show a spinner on the client while we wait for the response.
           yield <Spinner />;
 
           // Fetch the flight information from an external API.
-          const flightInfo = await getFlightInfo(flightNumber);
+          // @ts-ignore
+          const flightInfo = await get(Education);
 
           // Update the final AI state.
           aiState.done([
@@ -107,7 +93,7 @@ async function submitUserMessage(userInput: string) {
           ]);
 
           // Return the flight card to the client.
-          return <FlightCard flightInfo={flightInfo} />;
+          return <Education key={1} />;
         },
       },
     },

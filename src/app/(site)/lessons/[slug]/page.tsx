@@ -37,9 +37,6 @@ const page = ({ params }: lessonProps) => {
 
   return (
     <div className="flex justify-center h-[800px] pt-7 relative">
-      <div className="absolute right-10 bottom-10">
-        <Chat />
-      </div>
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
         <CarouselContent>
           {data.slides.map((slide, index) => (
@@ -119,6 +116,9 @@ const page = ({ params }: lessonProps) => {
         <CarouselPrevious className="hidden sm:block bottom-0 translate-y-[30vh] left-10" />
         <CarouselNext className="absolute hidden sm:block bottom-0 translate-y-[30vh] right-10" />
       </Carousel>
+      <div className="absolute  right-10 bottom-10">
+        <Chat />
+      </div>
     </div>
   );
 };

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUIState, useActions } from "ai/rsc";
-import type { AI } from "@/app/(site)/actions";
+import { AI } from "@/app/(site)/actions";
 
 export default function Chat() {
   const [inputValue, setInputValue] = useState("");
@@ -10,11 +10,11 @@ export default function Chat() {
   const { submitUserMessage } = useActions<typeof AI>();
 
   return (
-    <div className="max-w-30 max-h-70 p-3 bg-blue-950 rounded-md bottom-0 right-0">
+    <div className="max-w-60 max-h-70 p-3 bg-blue-950 rounded-md bottom-0 right-0">
       {
         // View messages in UI state
         messages.map((message: any) => (
-          <div key={message.id} className="">
+          <div key={message.id} className="border-b-[1px] border-gray-300 py-2">
             {message.display}
           </div>
         ))
