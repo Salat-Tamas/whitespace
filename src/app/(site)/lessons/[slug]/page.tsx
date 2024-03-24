@@ -17,7 +17,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
-import { Chat } from "openai/resources/index.mjs";
 
 type lessonProps = {
   params: {

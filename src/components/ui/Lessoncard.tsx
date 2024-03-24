@@ -15,16 +15,20 @@ const Lessoncard = ({ title, content, image }: slide) => {
         <div className="text-3xl font-bold text-white overflow-hidden pb-4 border-b-2 border-gray-800">
           <h2>{title}</h2>
         </div>
-        <div className="pt-4 text-white relative">
-          <p>{content}</p>
-          {image && (
-            <Image
-              src={image}
-              alt={title}
-              fill
-              className="w-full h-[300px] object-cover"
-            />
-          )}
+        <div className="pt-4 text-white relative w-full h-[90%] flex flex-col justify-between">
+          <div>
+            <p>{content}</p>
+          </div>
+          <div className="">
+            {image && (
+              <Image
+                src={image}
+                alt={title}
+                fill
+                className="w-full h-full object-fill rounded-xl"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
