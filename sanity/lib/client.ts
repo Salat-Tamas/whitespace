@@ -11,6 +11,7 @@ export const client = createClient({
 
 export interface Lesson {
   title: string;
+  image: string;
   slug: string;
   description: string;
   rating: number;
@@ -23,6 +24,7 @@ export async function getLessons(): Promise<Lesson[]> {
     title,
     "slug" : slug.current,
     description,
+    "image" : image.asset -> url,
     rating,
     outreach
     }`
