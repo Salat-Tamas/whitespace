@@ -14,8 +14,8 @@ const Login = (props: Props) => {
 
   return (
     <main className="flex justify-center items-center min-h-screen bg-background">
-      <div className="flex flex-col">
-        <h1 className="text-lg font-semibold text-center">Whitespace</h1>
+      <div className="flex flex-col sm:w-1/4">
+        <h1 className="text-2xl font-semibold text-center">Whitespace</h1>
         <Auth
           supabaseClient={supabase}
           redirectTo="/profile"
