@@ -6,7 +6,9 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+// @ts-ignore
 import dislike_red from "../../../public/assets/svgs/dislike_red.svg";
+// @ts-ignore
 import like_green from "../../../public/assets/svgs/like_green.svg";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +16,7 @@ export type FlipcardProps = {
   title: string;
   description: string;
   href: string;
+  image: string;
 };
 
 const Flipcard = (props: FlipcardProps) => {
@@ -40,7 +43,7 @@ const Flipcard = (props: FlipcardProps) => {
           transition={{ duration: 0.3, animationDirection: "normal" }}
           onAnimationComplete={() => setIsAnimating(false)}
         >
-          <FlipcardFront title={props.title} />
+          <FlipcardFront title={props.title} image={props.image}/>
 
           <FlipcardBack description={props.description} href={props.href} />
         </motion.div>
@@ -51,9 +54,9 @@ const Flipcard = (props: FlipcardProps) => {
 
 export default Flipcard;
 
-function FlipcardFront({ title }: { title: string }) {
+function FlipcardFront({ title, image }: { title: string, image: string }) {
   return (
-    <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between overflow-hidden">
+    <div className={`flip-card-front w-[100%] h-[100%] bg-cover bg-[${image}] border-[1px] text-white rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between overflow-hidden`}>
       <h3 className="text-md sm:text-lg md:text-2xl font-bold flex flex-auto">{title}</h3>
       <div className="flex flex-row justify-end gap-2">
         <div className="border-[2px] border-[#ff0000] rounded-full justify-center w-[30px] h-[30px]">

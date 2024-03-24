@@ -12,7 +12,7 @@ import { Skeleton } from "../ui/skeleton";
 
 type Props = {};
 
-const Lessons = (props: Props) => {
+const Lessons = () => {
   const { data, isLoading, error } = useSWR("/lessons", getLessons.bind(null));
   if (isLoading) return <Loader/>;
   if (error || data === undefined) return <div>Error: {error}</div>;
@@ -25,6 +25,7 @@ const Lessons = (props: Props) => {
           title={card.title}
           description={card.description}
           href={card.slug}
+          image={card.image}
         />
       ))}
     </div>
