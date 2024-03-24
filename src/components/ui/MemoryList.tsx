@@ -49,7 +49,7 @@ export function MemoryList({items} : {items: string[]}) {
           control={form.control}
           name="items"
           render={() => (
-            <FormItem className="overflow-scroll h-[350px] p-3">
+            <FormItem className="overflow-y-scroll h-[350px] p-3">
               {items.map((item) => (
                 <FormField
                   key={item}

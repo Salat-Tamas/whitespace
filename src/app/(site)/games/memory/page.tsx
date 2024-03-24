@@ -35,14 +35,15 @@ const page = () => {
         return array.sort(() => Math.random() - 0.5);
       }
     var array = [...CardDataRelevant, ...CardDataIrrelevant];
+    var array2 = [...CardDataRelevant, ...CardDataIrrelevant];
     const shuffledData = shuffle(array);
-
+    const shuffledData2 = shuffle(array2);
     return (
         <div className='w-full min-h-[85vh] mt-2 max-w-screen flex flex-col md:flex-row overflow-hidden justify-start md:justify-center items-center'>
-            <div className='h-[350px] overflow-y-hidden text-gray-300 w-full md:w-1/3'>
+            <div className='h-full overflow-hidden text-gray-300 w-full md:w-1/3'>
                 <h2 className='p-2 font-bold text-gray-300'>Select the <span className='text-indigo-600'>lesson-relevant</span> expressions from the flashcards in the checkboxes below:</h2>
                 <div className=''>
-                    <MemoryList items={array}/>
+                    <MemoryList items={shuffledData2}/>
                 </div>
             </div>
             <div className='grid grid-cols-3 gap-2 p-2'>
