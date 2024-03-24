@@ -31,7 +31,7 @@ const page = ({ params }: { params: { slug: string } }) => {
           expressions from the flashcards in the checkboxes below:
         </h2>
         <div className="">
-          <MemoryList items={shuffledData2} />
+          <MemoryList items={shuffledData2} relevantData={data.relevantCards} />
         </div>
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">

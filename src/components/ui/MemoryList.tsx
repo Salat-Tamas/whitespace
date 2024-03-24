@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -14,32 +14,56 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { toast } from "@/components/ui/use-toast"
+} from "@/components/ui/form";
+import { toast, useToast } from "@/components/ui/use-toast";
+import { title } from "process";
 
 const FormSchema = z.object({
   items: z.array(z.string()).refine((value) => value.some((item) => item), {
     message: "You have to select at least one item.",
   }),
-})
+});
 
-export function MemoryList({items} : {items: string[]}) {
+export function MemoryList({
+  items,
+  relevantData,
+}: {
+  items: string[];
+  relevantData: string[];
+}) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      items: ["recents", "home"],
+      items: [],
     },
-  })
+  });
+  const { toast } = useToast();
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+    var count: number, missed: string[];
+    // write  the logic to count the number of correct answers
+    count = 0;
+    missed = [];
+    data.items.forEach((item) => {
+      if (relevantData.includes(item)) {
+        count++;
+      }
+      if (!relevantData.includes(item)) {
+        missed.push(item);
+      }
+    });
+
+    if (count === relevantData.length) {
+      // GOT ALL
+      toast({ title: "You got all the items!" });
+    } else {
+      toast({
+        title: `You got ${Math.abs(
+          relevantData.length - count
+        )} items wrong: ${missed.join(", ")}`,
+      });
+      // `You missed ${relevantData.length - count} items: ${missed.join(", ")}`
+    }
   }
 
   return (
@@ -62,7 +86,8 @@ export function MemoryList({items} : {items: string[]}) {
                         className="flex flex-row items-start space-x-3 space-y-0"
                       >
                         <FormControl>
-                          <Checkbox className="w-6 h-6"
+                          <Checkbox
+                            className="w-6 h-6"
                             checked={field.value?.includes(item)}
                             onCheckedChange={(checked) => {
                               return checked
@@ -71,7 +96,7 @@ export function MemoryList({items} : {items: string[]}) {
                                     field.value?.filter(
                                       (value) => value !== item
                                     )
-                                  )
+                                  );
                             }}
                           />
                         </FormControl>
@@ -79,15 +104,19 @@ export function MemoryList({items} : {items: string[]}) {
                           {item}
                         </FormLabel>
                       </FormItem>
-                    )
+                    );
                   }}
                 />
               ))}
             </FormItem>
           )}
         />
-        <div className="flex flex-row justify-end p-2 sm:absolute sm:bottom-[30%]"><Button className="absolute top-[350px] sm:top-0" type="submit">Done!</Button></div>
+        <div className="flex flex-row justify-end p-2 sm:absolute sm:bottom-[30%]">
+          <Button className="absolute top-[350px] sm:top-0" type="submit">
+            Done!
+          </Button>
+        </div>
       </form>
     </Form>
-  )
+  );
 }
