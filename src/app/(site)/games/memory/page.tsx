@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { MemoryList } from '@/components/ui/MemoryList'
 
 const CardDataRelevant = [
     "relevant1",
@@ -37,11 +38,14 @@ const page = () => {
     const shuffledData = shuffle(array);
 
     return (
-        <div className='w-full min-h-[85vh] mt-2 max-w-screen flex flex-col md:flex-row overflow-hidden justify-start md:justify-center items-center border-2 border-red-600'>
-            <div className='h-full w-full md:w-1/3 border-2 border-blue-600'>
-                <h2>Select the <span className='text-indigo-600'>lesson-relevant</span> expressions from the flashcards in the checkboxes below:</h2>
+        <div className='w-full min-h-[85vh] mt-2 max-w-screen flex flex-col md:flex-row overflow-hidden justify-start md:justify-center items-center'>
+            <div className='h-[350px] overflow-y-hidden text-gray-300 w-full md:w-1/3'>
+                <h2 className='p-2 font-bold text-gray-300'>Select the <span className='text-indigo-600'>lesson-relevant</span> expressions from the flashcards in the checkboxes below:</h2>
+                <div className=''>
+                    <MemoryList items={array}/>
+                </div>
             </div>
-            <div className='grid grid-cols-3 gap-2 p-2 border-2 border-blue-600'>
+            <div className='grid grid-cols-3 gap-2 p-2'>
                 {shuffledData.map((content, index) => (
                     <Card key={index} content={content}/>
                 ))}
@@ -62,10 +66,6 @@ const Card = ({content}: {content: string}) => {
             setIsAnimating(true);
         }
     }
-
-    useEffect(() => {
-
-    })
     
     return (
         <div className="flex flex-wrap aspect-square items-center justify-center h-[80px] md:h-[100px] lg:h-[150px] cursor-pointer hover:scale-105 ease-in-out duration-300">
