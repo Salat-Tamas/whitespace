@@ -75,7 +75,7 @@ export function MemoryList({items} : {items: string[]}) {
                             }}
                           />
                         </FormControl>
-                        <FormLabel className="text-md font-normal">
+                        <FormLabel className="text-md font-normal border-b-[1px] w-full p-1 border-gray-800">
                           {item}
                         </FormLabel>
                       </FormItem>

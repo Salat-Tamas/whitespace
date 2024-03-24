@@ -75,10 +75,10 @@ const Card = ({content}: {content: string}) => {
             exit={{ opacity:0 }}
             initial={{ opacity:1 }}
             animate={isFlipped && { opacity:0, display:"none", cursor:"default" }}
-            transition={{ duration: 2 }}
+            transition={{ duration: 0.8 }}
             className={`flip-card aspect-square h-[80px] md:h-[100px] lg:h-[150px] rounded-md ${isFlipped ? "transform duration-1000 opacity-100" : ""}`} onClick={handleFlip}>
-                <motion.div className="flip-card-inner w-[100%] h-[100%] rounded-md" initial={false} animate={{ rotateY: isFlipped ? 180 : 360 }} transition={{ duration: 0.3, animationDirection: "normal" }} onAnimationComplete={() => setIsAnimating(false)}>
-                    <FlipcardFront />
+                <motion.div className="flip-card-inner w-[100%] h-[100%] rounded-md" initial={false} animate={{ rotateY: isFlipped ? 180 : 360 }} transition={{ duration: 0.1, animationDirection: "normal" }} onAnimationComplete={() => setIsAnimating(false)}>
+                    <FlipcardFront/>
                     <FlipcardBack content={content} />
                 </motion.div>
             </motion.div>
@@ -88,13 +88,13 @@ const Card = ({content}: {content: string}) => {
 
 function FlipcardFront() {
     return (
-        <div className="flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between overflow-hidden"/>
+        <div className='flip-card-front w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-between overflow-hidden'/>
     )
 }
 
 function FlipcardBack({content}: {content: string}) {
     return (
-    <div className="flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center">
+    <div className={`flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center ${CardDataRelevant.includes(content) ? "bg-gradient-to-tr from-black to-blue-800" : ""}`}>
         <p>{content}</p>
     </div>
     )
