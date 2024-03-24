@@ -5,6 +5,7 @@ import Navbar from "@/components/pageSide/Navbar";
 import Footer from "@/components/pageSide/Footer";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
+import { AI } from "./actions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,10 +22,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(inter.className, "select-none")}>
-        <Navbar />
-        <div className="pt-14 sm:pt-0">{children}</div>
-        <Footer />
-        <Toaster />
+        <AI>
+          <Navbar />
+          <div className="pt-14 sm:pt-0">{children}</div>
+          <Footer />
+          <Toaster />
+        </AI>
       </body>
     </html>
   );
