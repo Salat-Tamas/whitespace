@@ -36,7 +36,7 @@ const page = ({ params }: { params: { slug: string } }) => {
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">
         {shuffledData.map((content, index) => (
-          <Card key={index} content={content} />
+          <Card key={index} content={content} relevantCards={data.relevantCards}/>
         ))}
       </div>
     </div>
@@ -45,7 +45,7 @@ const page = ({ params }: { params: { slug: string } }) => {
 
 export default page;
 
-const Card = ({ content }: { content: string }) => {
+const Card = ({ content, relevantCards }: { content: string, relevantCards: string[] }) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -65,7 +65,7 @@ const Card = ({ content }: { content: string }) => {
         animate={
           isFlipped && { opacity: 0, display: "none", cursor: "default" }
         }
-        transition={{ duration: 2 }}
+        transition={{ duration: 0.8 }}
         className={`flip-card aspect-square h-[80px] md:h-[100px] lg:h-[150px] rounded-md ${
           isFlipped ? "transform duration-1000 opacity-100" : ""
         }`}
@@ -75,11 +75,11 @@ const Card = ({ content }: { content: string }) => {
           className="flip-card-inner w-[100%] h-[100%] rounded-md"
           initial={false}
           animate={{ rotateY: isFlipped ? 180 : 360 }}
-          transition={{ duration: 0.3, animationDirection: "normal" }}
+          transition={{ duration: 0.1, animationDirection: "normal" }}
           onAnimationComplete={() => setIsAnimating(false)}
         >
           <FlipcardFront />
-          <FlipcardBack content={content} />
+          <FlipcardBack content={content} relevantCards={relevantCards}/>
         </motion.div>
       </motion.div>
     </div>
@@ -92,10 +92,10 @@ function FlipcardFront() {
   );
 }
 
-function FlipcardBack({ content }: { content: string }) {
+function FlipcardBack({content, relevantCards}: {content: string, relevantCards: string[]}) {
   return (
-    <div className="flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center">
+  <div className={`flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center ${relevantCards.includes(content) ? "bg-gradient-to-tr from-black to-blue-800" : ""}`}>
       <p>{content}</p>
-    </div>
-  );
+  </div>
+  )
 }
