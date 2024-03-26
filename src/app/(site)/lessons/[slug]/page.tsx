@@ -38,7 +38,7 @@ const page = ({ params }: lessonProps) => {
   return (
     <div className="flex justify-center min-h-[90vh] h-[800px] pt-7 relative">
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
-        <CarouselContent>
+        <CarouselContent className='max-h-[800px] p-3 justify-center'>
           {data.slides.map((slide, index) => (
             <CarouselItem key={index}>
               <Lessoncard
@@ -48,8 +48,8 @@ const page = ({ params }: lessonProps) => {
               />
             </CarouselItem>
           ))}
-          <CarouselItem className="p-7">
-            <Card className="bg-gradient-to-tr from-gray-800 to-indigo-600 h-full w-full">
+          <CarouselItem>
+            <Card className="bg-gradient-to-tr from-gray-800 to-indigo-600 h-full w-full overflow-y-scroll">
               <CardHeader>
                 <CardTitle className="text-4xl">Choose game</CardTitle>
               </CardHeader>
