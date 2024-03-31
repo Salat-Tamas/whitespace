@@ -27,11 +27,16 @@ export const createProfile = async (userId: string) => {
   return data;
 };
 
-export const addScore = async (userId: string, score: number) => {
+export const addScore = async (
+  userId: string,
+  score: number,
+  lesson: string
+) => {
   const { data, error } = await createClient()
     .from("profiles")
-    .update({ score: score })
+    .update({ score: score, lesson: lesson })
     .eq("id", userId);
-
-  return data;
+  if (error) {
+    console.error(error);
+  }
 };

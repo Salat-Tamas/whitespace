@@ -7,7 +7,14 @@ import Image from "next/image";
 import { Hangman } from "../../../../../../sanity/lib/client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-const HangManComp = ({ hangman, slug }: { hangman: Hangman; slug: string }) => {
+
+type PageProps = {
+  hangman: Hangman;
+  slug: string;
+  setGameScore: (score: number) => void;
+};
+
+const HangManComp = ({ hangman, slug, setGameScore }: PageProps) => {
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   hangman.word = hangman.word.toLowerCase();
   useEffect(() => {
@@ -43,6 +50,10 @@ const HangManComp = ({ hangman, slug }: { hangman: Hangman; slug: string }) => {
     },
     [guessedLetters, isWinner, isLoser]
   );
+  if (isWinner || isLoser) {
+    setGameScore(isWinner ? 10 : -1);
+  }
+
   const router = useRouter();
   return (
     <div className="flex flex-col gap-8 justify-center max-w-screen items-center p-6 min-h-[90vh]">
