@@ -1,14 +1,13 @@
-import SubscriptionCard from '@/components/pageSide/SubscriptionCard'
-import React from 'react'
+import SubscriptionCard from "@/components/pageSide/SubscriptionCard";
 
 const BecomeACreator = () => {
   return (
-    <div className='min-h-[90vh]'>
-      <div className='flex justify-center my-12 md:my-36'>
+    <div className="min-h-[90vh]">
+      <div className="flex justify-center my-12 md:my-36">
         <SubscriptionCard />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BecomeACreator
+export default BecomeACreator;
