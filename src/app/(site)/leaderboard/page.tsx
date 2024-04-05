@@ -51,7 +51,6 @@ const page = (props: Props) => {
     };
     fetchData();
   }, []);
-  console.log(profiles);
 
   return <Leaderboard data={profiles} />;
 };

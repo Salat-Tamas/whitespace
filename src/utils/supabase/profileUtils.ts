@@ -4,16 +4,17 @@ import { UserIdentity } from "@supabase/supabase-js";
 import { createClient } from "./server";
 import { Player } from "@/components/LeaderBoard";
 
-export const getProfile = async (userId: string) => {
+export const getProfile = async (userId: string, userName: string) => {
   const { data, error } = await createClient()
     .from("profiles")
     .select("*")
     .eq("id", userId)
     .single();
+  if (data == null) return createProfile(userId, userName);
   return data;
 };
 
-export const createProfile = async (userId: UserIdentity, userName: string) => {
+export const createProfile = async (userId: string, userName: string) => {
   const { data, error } = await createClient()
     .from("profiles")
     .insert([

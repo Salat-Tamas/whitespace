@@ -48,7 +48,7 @@ const page = (props: Props) => {
       } = await supabase.auth.getUser();
       if (user) {
         setUser(user);
-        const profileData = getProfile(user.id);
+        const profileData = getProfile(user.id, user.user_metadata.name);
         setProfile(profileData);
       } else {
         return <div>Loading...Only signed users allowed</div>;
