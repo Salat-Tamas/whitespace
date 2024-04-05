@@ -17,7 +17,7 @@ const page = ({ params }: { params: { slug: string } }) => {
   const supabase = createClient();
 
   const [user, setUser] = useState<User>();
-  const [gameScore, setGameScore] = useState<number>(0);
+  const [gameScore, setGameScore] = useState<number>(-1);
   useEffect(() => {
     async function getUser() {
       const {

@@ -15,14 +15,10 @@ export const getProfile = async (userId: string, userName: string) => {
 };
 
 export const createProfile = async (userId: string, userName: string) => {
-  const { data, error } = await createClient()
-    .from("profiles")
-    .insert([
-      {
-        id: userId,
-        nickName: userName,
-      },
-    ]);
+  const { data, error } = await createClient().from("profiles").insert({
+    id: userId,
+    nickName: userName,
+  });
 
   return data;
 };
