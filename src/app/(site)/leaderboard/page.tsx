@@ -43,7 +43,7 @@ const data: Player[] = [
 ];
 
 const page = (props: Props) => {
-  const [profiles, setProfiles] = useState<any>([]);
+  const [profiles, setProfiles] = useState<Player[]>([]);
   useEffect(() => {
     const fetchData = async () => {
       const players = await getProfiles();

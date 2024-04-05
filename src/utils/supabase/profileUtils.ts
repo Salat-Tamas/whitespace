@@ -65,6 +65,7 @@ export const getProfiles = async (): Promise<Player[]> => {
         id: string;
         created_at: string;
         score: number;
+        nickName: string;
         lessons: string[];
       },
       index: number
@@ -73,7 +74,7 @@ export const getProfiles = async (): Promise<Player[]> => {
         number: index + 1,
         id: profile.id,
         Score: profile.score,
-        nickname: "Player " + index,
+        nickname: profile.nickName || "Anonymous",
         totalNumberOfGamesPlayed: profile.lessons?.length || 0,
       };
     }
