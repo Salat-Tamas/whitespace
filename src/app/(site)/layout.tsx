@@ -6,6 +6,7 @@ import Footer from "@/components/pageSide/Footer";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toaster";
 import { AI } from "./actions";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,10 @@ export default function RootLayout({
       <body className={cn(inter.className, "select-none")}>
         <AI>
           <Navbar />
-          <div className="pt-14 sm:pt-0">{children}</div>
+          <div className="pt-14 sm:pt-0">
+            {children}
+            <Analytics />
+          </div>
           <Footer />
           <Toaster />
         </AI>
