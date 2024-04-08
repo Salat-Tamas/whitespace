@@ -25,13 +25,11 @@ export default function RootLayout({
       <body className={cn(inter.className, "select-none")}>
         <AI>
           <Navbar />
-          <div className="pt-14 sm:pt-0">
-            {children}
-            <Analytics />
-          </div>
+          <div className="pt-14 sm:pt-0">{children}</div>
           <Footer />
           <Toaster />
         </AI>
+        <Analytics />
       </body>
     </html>
   );
