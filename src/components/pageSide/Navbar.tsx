@@ -115,7 +115,7 @@ const Navbar = () => {
                 <div className="flex flex-row mr-4 p-2 rounded-md items-center bg-gradient-to-tr from-blue-900 to-yellow-600 cursor-pointer transition-colors duration-[0.6s] ease-in-out hover:from-blue-900 hover:to-amber-600">
                   <Link
                     className="mx-4 text-xs sm:text-md"
-                    href="/become-a-creator"
+                    href="/becomeAcreator"
                   >
                     Become a creator!
                   </Link>

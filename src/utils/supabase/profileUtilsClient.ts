@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { UserIdentity } from "@supabase/supabase-js";
 import { createClient } from "./client";
@@ -27,11 +27,23 @@ export const createProfile = async (userId: string) => {
   return data;
 };
 
-export const addScore = async (userId: string, score: number) => {
+export const addScore = async (
+  userId: string,
+  score: number,
+  lesson: string
+) => {
+  const { data: cScore, error: err } = await createClient()
+    .from("profiles")
+    .select("score")
+    .eq("id", userId)
+    .single();
+  // console.log("cScore", cScore);
+
   const { data, error } = await createClient()
     .from("profiles")
-    .update({ score: score })
+    .update({ score: cScore?.score + score })
     .eq("id", userId);
-
-  return data;
+  if (error) {
+    console.error(error);
+  }
 };

@@ -50,6 +50,7 @@
     "@supabase/ssr": "^0.1.0",
     "@supabase/supabase-js": "^2.39.8",
     "@tanstack/react-table": "^8.15.0",
+    "@vercel/analytics": "^1.2.2",
     "ai": "^3.0.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

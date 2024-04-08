@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { MemoryList } from "@/components/ui/MemoryList";
 import useSWR from "swr";
@@ -8,7 +8,7 @@ import { getMemmo } from "../../../../../../sanity/lib/client";
 
 const page = ({ params }: { params: { slug: string } }) => {
   const { data, isLoading, error } = useSWR(
-    "memory",
+    "/memory",
     getMemmo.bind(null, params.slug)
   );
 
@@ -36,16 +36,24 @@ const page = ({ params }: { params: { slug: string } }) => {
       </div>
       <div className="grid grid-cols-3 gap-2 p-2">
         {shuffledData.map((content, index) => (
-          <Card key={index} content={content} relevantCards={data.relevantCards}/>
+          <Card
+            key={index}
+            content={content}
+            relevantCards={data.relevantCards}
+          />
         ))}
       </div>
     </div>
   );
 };
 
-export default page;
-
-const Card = ({ content, relevantCards }: { content: string, relevantCards: string[] }) => {
+const Card = ({
+  content,
+  relevantCards,
+}: {
+  content: string;
+  relevantCards: string[];
+}) => {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
 
@@ -79,7 +87,7 @@ const Card = ({ content, relevantCards }: { content: string, relevantCards: stri
           onAnimationComplete={() => setIsAnimating(false)}
         >
           <FlipcardFront />
-          <FlipcardBack content={content} relevantCards={relevantCards}/>
+          <FlipcardBack content={content} relevantCards={relevantCards} />
         </motion.div>
       </motion.div>
     </div>
@@ -92,10 +100,24 @@ function FlipcardFront() {
   );
 }
 
-function FlipcardBack({content, relevantCards}: {content: string, relevantCards: string[]}) {
+function FlipcardBack({
+  content,
+  relevantCards,
+}: {
+  content: string;
+  relevantCards: string[];
+}) {
   return (
-  <div className={`flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center ${relevantCards.includes(content) ? "bg-gradient-to-tr from-black to-blue-800" : ""}`}>
+    <div
+      className={`flip-card-back w-[100%] h-[100%] bg-cover border-[1px] text-gray-300 sm:text-sm rounded-lg p-4 bg-gradient-to-tr from-indigo-600 to-purple-700 flex flex-col justify-center items-center ${
+        relevantCards.includes(content)
+          ? "bg-gradient-to-tr from-black to-blue-800"
+          : ""
+      }`}
+    >
       <p>{content}</p>
-  </div>
-  )
+    </div>
+  );
 }
+
+export default page;
