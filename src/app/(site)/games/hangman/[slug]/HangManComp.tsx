@@ -70,7 +70,7 @@ const HangManComp = ({ hangman, slug, setGameScore }: PageProps) => {
             </div>
           )}
           {isLoser && (
-            <div className="absolute right-[-10rem] border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12 bg gray-900">
+            <div className="absolute right-[-10rem] border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12 bg-gray-900">
               Lose!
               <button onClick={() => router.replace(`/lessons/${slug}`)} className="text-red-500 text-lg">
                 AGAIN
