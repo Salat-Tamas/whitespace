@@ -25,8 +25,8 @@ export default function Chat() {
               isVisible ? "opacity-0" : "opacity-100"
             } transition-opacity duration-500`}
             src="/assets/images/icon2.png"
-            height={80}
-            width={80}
+            height={70}
+            width={70}
             alt="Ai assistant icon"
           />
         </div>
