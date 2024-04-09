@@ -38,7 +38,7 @@ const page = ({ params }: lessonProps) => {
   return (
     <div className="flex justify-center min-h-[90vh] h-[800px] pt-7 relative">
       <Carousel className="w-full max-w-[100vw] sm:max-w-[80vw] lg:max-w-[60vw] h-full relative">
-        <CarouselContent className='max-h-[800px] p-3 justify-center'>
+        <CarouselContent className='max-h-[800px] p-3'>
           {data.slides.map((slide, index) => (
             <CarouselItem key={index}>
               <Lessoncard
