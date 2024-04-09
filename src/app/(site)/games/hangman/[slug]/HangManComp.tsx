@@ -62,17 +62,17 @@ const HangManComp = ({ hangman, slug, setGameScore }: PageProps) => {
           className={`text-5xl font-bold text-center mt-16 z-10 absolute  h-40 flex-col justify-center -translate-y-[300px] `}
         >
           {isWinner && (
-            <div className="border-[16px] text-green-600 rounded-[60px] border-green-600 px-24 py-12">
+            <div className="absolute right-[-10rem] border-[16px] text-green-600 rounded-[60px] border-green-600 px-24 py-12 bg-gray-900">
               Win!
-              <button onClick={() => router.back()} className="text-red-500">
+              <button onClick={() => router.back()} className="text-red-500 text-lg">
                 Go back
               </button>
             </div>
           )}
           {isLoser && (
-            <div className="border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12">
+            <div className="absolute right-[-10rem] border-[16px] text-red-600 rounded-[60px] border-red-600  px-24 py-12 bg gray-900">
               Lose!
-              <button onClick={() => router.replace(`/lessons/${slug}`)}>
+              <button onClick={() => router.replace(`/lessons/${slug}`)} className="text-red-500 text-lg">
                 AGAIN
               </button>
             </div>

@@ -116,7 +116,7 @@ const page = ({ params }: lessonProps) => {
         <CarouselPrevious className="hidden sm:block bottom-0 translate-y-[30vh] left-10" />
         <CarouselNext className="absolute hidden sm:block bottom-0 translate-y-[30vh] right-10" />
       </Carousel>
-      <div className="absolute  right-10 bottom-10">
+      <div className="absolute  right-10 bottom-10 md:bottom-24">
         <Chat />
       </div>
     </div>
