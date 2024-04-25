@@ -10,7 +10,7 @@ export const slide = defineType({
       description: "Title for the current slide",
       title: "Title",
       type: "string",
-      validation: (Rule) => Rule.required().max(50),
+      validation: (Rule) => Rule.required().max(100),
     }),
 
     defineField({
