@@ -15,7 +15,7 @@ export const hangMan = defineType({
       title: "Word to guess",
       name: "word",
       type: "string",
-      validation: (Rule) => Rule.required().max(10),
+      validation: (Rule) => Rule.required().max(25),
     }),
     defineField({
       name: "hint",
